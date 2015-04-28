@@ -9,7 +9,7 @@
         <!--Meme Editor View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="MemeEditorViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -18,16 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="298" translatesAutoresizingMaskIntoConstraints="NO" id="LwK-y1-Qzf">
-                                <rect key="frame" x="150" y="151" width="300" height="298"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="150:149" id="S5q-d6-gMc"/>
-                                </constraints>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ua4-fM-zSo">
-                                <rect key="frame" x="260" y="457" width="82" height="30"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ua4-fM-zSo">
+                                <rect key="frame" x="296" y="441" width="9" height="21"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfh-Lj-Nrr">
@@ -39,31 +32,57 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1e-X2-YJa">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Photo Library" id="p4Y-Oq-Y23"/>
-                                    <barButtonItem systemItem="camera" id="0kg-1q-kws"/>
+                                    <barButtonItem tag="1" title="Photo Library" id="p4Y-Oq-Y23">
+                                        <connections>
+                                            <action selector="imagePicker:" destination="vXZ-lx-hvc" id="pTX-y8-mPS"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cZe-b1-MxE"/>
+                                    <barButtonItem tag="2" systemItem="camera" id="0kg-1q-kws">
+                                        <connections>
+                                            <action selector="imagePicker:" destination="vXZ-lx-hvc" id="5YA-xI-bho"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hL-41-e61">
-                                <rect key="frame" x="276" y="113" width="50" height="30"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hL-41-e61">
+                                <rect key="frame" x="297" y="138" width="9" height="21"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="LwK-y1-Qzf">
+                                <rect key="frame" x="175" y="175" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="150:149" id="S5q-d6-gMc"/>
+                                    <constraint firstAttribute="width" constant="250" id="lW0-c2-Tzw"/>
+                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="1:1" id="nzz-Bc-Z7D"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="S5q-d6-gMc"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ua4-fM-zSo" firstAttribute="top" secondItem="LwK-y1-Qzf" secondAttribute="bottom" constant="8" id="9v0-m5-RTg"/>
                             <constraint firstAttribute="centerX" secondItem="4hL-41-e61" secondAttribute="centerX" constant="-1" id="BAN-3G-AzM"/>
                             <constraint firstItem="n1e-X2-YJa" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="BKe-Gv-3cr"/>
+                            <constraint firstItem="ua4-fM-zSo" firstAttribute="top" secondItem="LwK-y1-Qzf" secondAttribute="bottom" constant="16" id="Jfh-c4-1sj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="n1e-X2-YJa" secondAttribute="trailing" constant="-16" id="Mgd-DP-sTI"/>
                             <constraint firstAttribute="centerY" secondItem="LwK-y1-Qzf" secondAttribute="centerY" id="Szs-xU-lqI"/>
+                            <constraint firstItem="LwK-y1-Qzf" firstAttribute="top" secondItem="4hL-41-e61" secondAttribute="bottom" constant="16" id="UPx-J0-yHr"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="n1e-X2-YJa" secondAttribute="bottom" id="aa2-aU-1VL"/>
-                            <constraint firstItem="LwK-y1-Qzf" firstAttribute="top" secondItem="4hL-41-e61" secondAttribute="bottom" constant="8" id="cP7-Q4-YG6"/>
                             <constraint firstAttribute="centerX" secondItem="LwK-y1-Qzf" secondAttribute="centerX" id="fZR-NC-274"/>
                             <constraint firstAttribute="centerX" secondItem="ua4-fM-zSo" secondAttribute="centerX" constant="-0.5" id="mA7-Xe-XfJ"/>
-                            <constraint firstItem="n1e-X2-YJa" firstAttribute="top" secondItem="ua4-fM-zSo" secondAttribute="bottom" constant="69" id="rOT-zx-KTh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomTextField" destination="ua4-fM-zSo" id="spP-eL-jEb"/>
+                        <outlet property="cameraButton" destination="0kg-1q-kws" id="YoC-qN-bT0"/>
+                        <outlet property="memeImage" destination="LwK-y1-Qzf" id="rl0-Sk-Kpv"/>
+                        <outlet property="topTextField" destination="4hL-41-e61" id="H1X-V1-nQz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
