@@ -22,22 +22,29 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBOutlet weak var sharingNavigationBar: UINavigationBar!
     
-    var userGeneratedMeme: Meme!
-    
-    let memeTextAttributes = [
-        NSStrokeColorAttributeName: UIColor.blackColor(),
-        NSForegroundColorAttributeName: UIColor.whiteColor(),
-        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : 5.0
-        ]
+    private let TopTextDefault = "TOP"
+	
+	private let BottomTextDefault = "BOTTOM"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.grayColor()
+		
+		let memeTextAttributes = [
+			NSStrokeColorAttributeName: UIColor.blackColor(),
+			NSForegroundColorAttributeName: UIColor.whiteColor(),
+			NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+			NSStrokeWidthAttributeName : -5.0
+        ]
+		
+		topTextField.delegate = self
         topTextField.defaultTextAttributes = memeTextAttributes
+		topTextField.textAlignment = .Center
+		topTextField.text = TopTextDefault
+		bottomTextField.delegate = self
         bottomTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
+		bottomTextField.textAlignment = .Center
+        bottomTextField.text = BottomTextDefault
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -75,22 +82,28 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func saveMeme() {
-        let memeImage = generateMeme()
+    func saveMeme(editedMemeImage: UIImage) {
         if let originalImage = self.imageToMeme.image {
-            userGeneratedMeme = Meme(image: originalImage, memeImage: memeImage, topText: topTextField.text, bottomText: bottomTextField.text)
+            let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage, topText: topTextField.text, bottomText: bottomTextField.text)
         }
-        
     }
     
     @IBAction func shareMeme(sender: UIBarButtonItem) {
-        saveMeme()
-        let activityItem = [userGeneratedMeme.memeImage]
+		let userEditedMemeImage = generateMemeImage()
+        let activityItem = [userEditedMemeImage]
         let activityController = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
         self.presentViewController(activityController, animated: true, completion: nil)
+		activityController.completionHandler = {(activityType, completed: Bool) in
+			if !completed {
+				println("Error")	
+			} else {
+			saveMeme(userEditedMemeImage)
+			dismissViewControllerAnimated(true, completion: nil)
+			}
+		}
     }
     
-    func generateMeme() -> UIImage {
+    func generateMemeImage() -> UIImage {
         // hide the navigationBar and toolBar so that they aren't part of the meme
         self.sharingNavigationBar.hidden = true
         self.photoSelectorToolbar.hidden = true
@@ -106,7 +119,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        textField.text = ""
+        if textField.text == TopTextDefault || textField.text == BottomTextDefault {
+			textField.text = String()
+		}
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
