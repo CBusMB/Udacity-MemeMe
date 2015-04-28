@@ -21,8 +21,8 @@ class MemeCollection
         collection.append(meme)
     }
     
-    func removeMemeFromCollection(meme: Meme) {
-        collection.removeAtIndex(<,#index: Int#>)
-    }
+//    func removeMemeFromCollection(meme: Meme) {
+//        collection.removeAtIndex(<,#index: Int#>)
+//    }
 
 }

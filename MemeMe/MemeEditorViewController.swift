@@ -28,21 +28,26 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.grayColor()
+        self.imageToMeme.backgroundColor = UIColor.grayColor()
+        self.sharingNavigationBar.backgroundColor = UIColor.grayColor()
 		
 		let memeTextAttributes = [
 			NSStrokeColorAttributeName: UIColor.blackColor(),
 			NSForegroundColorAttributeName: UIColor.whiteColor(),
 			NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-			NSStrokeWidthAttributeName : -5.0
+			NSStrokeWidthAttributeName : -2.0
         ]
 		
 		topTextField.delegate = self
         topTextField.defaultTextAttributes = memeTextAttributes
+        topTextField.borderStyle = UITextBorderStyle.None
 		topTextField.textAlignment = .Center
+        topTextField.backgroundColor = UIColor.clearColor()
 		topTextField.text = TopTextDefault
 		bottomTextField.delegate = self
         bottomTextField.defaultTextAttributes = memeTextAttributes
+        bottomTextField.borderStyle = UITextBorderStyle.None
+        bottomTextField.backgroundColor = UIColor.clearColor()
 		bottomTextField.textAlignment = .Center
         bottomTextField.text = BottomTextDefault
     }
@@ -93,13 +98,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let activityItem = [userEditedMemeImage]
         let activityController = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
         self.presentViewController(activityController, animated: true, completion: nil)
-		activityController.completionHandler = {(activityType, completed: Bool) in
-			if !completed {
-				println("Error")	
-			} else {
-			saveMeme(userEditedMemeImage)
-			dismissViewControllerAnimated(true, completion: nil)
-			}
+        activityController.completionWithItemsHandler = {(String, Bool, [AnyObject]!, NSError) in
+            self.saveMeme(userEditedMemeImage)
+            self.dismissViewControllerAnimated(true, completion: nil)
 		}
     }
     
@@ -118,6 +119,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         return meme
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        sharingNavigationBar.hidden = true
+        return true
+    }
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField.text == TopTextDefault || textField.text == BottomTextDefault {
 			textField.text = String()
@@ -126,6 +132,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        sharingNavigationBar.hidden = false
         return true
     }
     
