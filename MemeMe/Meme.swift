@@ -9,14 +9,16 @@
 
 import UIKit
 
-struct Meme
+class Meme
 {
     private var image: UIImage
+    private var memeImage: UIImage
     private var topText: String
     private var bottomText: String
     
-    init(image: UIImage, topText: String, bottomText: String) {
+    init(image: UIImage, memeImage: UIImage, topText: String, bottomText: String) {
         self.image = image
+        self.memeImage = memeImage
         self.topText = topText
         self.bottomText = bottomText
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
 {
-    @IBOutlet weak var memeImage: UIImageView!
+    @IBOutlet weak var imageToMeme: UIImageView!
 
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
@@ -18,6 +18,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBOutlet weak var bottomTextField: UITextField!
     
+    var userGeneratedMeme: Meme!
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName: UIColor.blackColor(),
@@ -28,6 +29,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.grayColor()
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
         topTextField.text = "TOP"
@@ -60,7 +62,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.memeImage.image = image
+            self.imageToMeme.image = image
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -69,16 +71,45 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func saveMeme() {
+        let memeImage = generateMeme()
+        if let originalImage = self.imageToMeme.image {
+            let userGeneratedMeme = Meme(image: originalImage, memeImage: memeImage, topText: topTextField.text, bottomText: bottomTextField.text)
+        }
+        
+    }
+    
+//    @IBAction func share(sender: UIBarButtonItem) {
+//        saveMeme()
+//        let activityItem = [userGeneratedMeme]
+//        let applicationActivities = [UIActivityTypeAirDrop, UIActivityTypeSaveToCameraRoll, UIActivityTypePostToTwitter, UIActivityTypePostToFacebook]
+//        let activityController = UIActivityViewController(activityItems: [activityItem], applicationActivities: applicationActivities)
+//        self.presentViewController(activityController, animated: true, completion: nil)
+//    }
+    
+    func generateMeme() -> UIImage {
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let meme = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return meme
+    }
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     
     func keyboardWillShow(notification: NSNotification) {
         self.view.frame.origin.y -= keyboardHeight(notification)
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y += keyboardHeight(notification)
     }
     
     func keyboardHeight(notification: NSNotification) -> CGFloat {
@@ -89,10 +120,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func subscribeToKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
 }

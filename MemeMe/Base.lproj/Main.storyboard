@@ -18,11 +18,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ua4-fM-zSo">
-                                <rect key="frame" x="296" y="441" width="9" height="21"/>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="LwK-y1-Qzf">
+                                <rect key="frame" x="175" y="175" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="150:149" id="S5q-d6-gMc"/>
+                                    <constraint firstAttribute="width" constant="250" id="lW0-c2-Tzw"/>
+                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="1:1" id="nzz-Bc-Z7D"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="S5q-d6-gMc"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfh-Lj-Nrr">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                                 <items>
@@ -50,19 +58,27 @@
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="LwK-y1-Qzf">
-                                <rect key="frame" x="175" y="175" width="250" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="150:149" id="S5q-d6-gMc"/>
-                                    <constraint firstAttribute="width" constant="250" id="lW0-c2-Tzw"/>
-                                    <constraint firstAttribute="width" secondItem="LwK-y1-Qzf" secondAttribute="height" multiplier="1:1" id="nzz-Bc-Z7D"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="S5q-d6-gMc"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ugv-9t-6fN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="MemeMe" id="HXx-iN-5Xy">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="zZj-pv-cW4"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ua4-fM-zSo">
+                                <rect key="frame" x="238" y="383" width="125" height="20"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="placeholder text">
+                                        <attributes>
+                                            <color key="NSColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="12" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="clipping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -74,13 +90,19 @@
                             <constraint firstItem="LwK-y1-Qzf" firstAttribute="top" secondItem="4hL-41-e61" secondAttribute="bottom" constant="16" id="UPx-J0-yHr"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="n1e-X2-YJa" secondAttribute="bottom" id="aa2-aU-1VL"/>
                             <constraint firstAttribute="centerX" secondItem="LwK-y1-Qzf" secondAttribute="centerX" id="fZR-NC-274"/>
-                            <constraint firstAttribute="centerX" secondItem="ua4-fM-zSo" secondAttribute="centerX" constant="-0.5" id="mA7-Xe-XfJ"/>
+                            <constraint firstItem="ua4-fM-zSo" firstAttribute="top" secondItem="LwK-y1-Qzf" secondAttribute="bottom" constant="-42" id="iWp-J9-pAJ"/>
+                            <constraint firstAttribute="centerX" secondItem="ua4-fM-zSo" secondAttribute="centerX" id="mA7-Xe-XfJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Jfh-c4-1sj"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="bottomTextField" destination="ua4-fM-zSo" id="spP-eL-jEb"/>
                         <outlet property="cameraButton" destination="0kg-1q-kws" id="YoC-qN-bT0"/>
-                        <outlet property="memeImage" destination="LwK-y1-Qzf" id="rl0-Sk-Kpv"/>
+                        <outlet property="imageToMeme" destination="LwK-y1-Qzf" id="scW-0W-9ey"/>
                         <outlet property="topTextField" destination="4hL-41-e61" id="H1X-V1-nQz"/>
                     </connections>
                 </viewController>
