@@ -9,10 +9,10 @@
 
 import UIKit
 
-class Meme
+struct Meme
 {
-    private var image: UIImage
-    private var memeImage: UIImage
+    var image: UIImage
+    var memeImage: UIImage
     private var topText: String
     private var bottomText: String
     

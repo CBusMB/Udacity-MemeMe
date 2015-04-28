@@ -18,13 +18,17 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBOutlet weak var bottomTextField: UITextField!
     
+    @IBOutlet weak var photoSelectorToolbar: UIToolbar!
+    
+    @IBOutlet weak var sharingNavigationBar: UINavigationBar!
+    
     var userGeneratedMeme: Meme!
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName: UIColor.blackColor(),
         NSForegroundColorAttributeName: UIColor.whiteColor(),
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : 3.0
+        NSStrokeWidthAttributeName : 5.0
         ]
     
     override func viewDidLoad() {
@@ -74,24 +78,30 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func saveMeme() {
         let memeImage = generateMeme()
         if let originalImage = self.imageToMeme.image {
-            let userGeneratedMeme = Meme(image: originalImage, memeImage: memeImage, topText: topTextField.text, bottomText: bottomTextField.text)
+            userGeneratedMeme = Meme(image: originalImage, memeImage: memeImage, topText: topTextField.text, bottomText: bottomTextField.text)
         }
         
     }
     
-//    @IBAction func share(sender: UIBarButtonItem) {
-//        saveMeme()
-//        let activityItem = [userGeneratedMeme]
-//        let applicationActivities = [UIActivityTypeAirDrop, UIActivityTypeSaveToCameraRoll, UIActivityTypePostToTwitter, UIActivityTypePostToFacebook]
-//        let activityController = UIActivityViewController(activityItems: [activityItem], applicationActivities: applicationActivities)
-//        self.presentViewController(activityController, animated: true, completion: nil)
-//    }
+    @IBAction func shareMeme(sender: UIBarButtonItem) {
+        saveMeme()
+        let activityItem = [userGeneratedMeme.memeImage]
+        let activityController = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
+        self.presentViewController(activityController, animated: true, completion: nil)
+    }
     
     func generateMeme() -> UIImage {
+        // hide the navigationBar and toolBar so that they aren't part of the meme
+        self.sharingNavigationBar.hidden = true
+        self.photoSelectorToolbar.hidden = true
+        
         UIGraphicsBeginImageContext(self.view.frame.size)
         self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
         let meme = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+        self.sharingNavigationBar.hidden = false
+        self.photoSelectorToolbar.hidden = false
         return meme
     }
     
