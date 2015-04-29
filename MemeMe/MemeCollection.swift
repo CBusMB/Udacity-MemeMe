@@ -10,15 +10,18 @@ import Foundation
 
 class MemeCollection
 {
-    private var collection = [Meme]()
+    static let collection = MemeCollection()
+    
+    private var memes = [Meme]()
+    
     var memeCollection: [Meme] {
         get {
-            return collection
+            return memes
         }
     }
     
     func addMemeToCollection(meme: Meme) {
-        collection.append(meme)
+        memes.append(meme)
     }
     
 //    func removeMemeFromCollection(meme: Meme) {

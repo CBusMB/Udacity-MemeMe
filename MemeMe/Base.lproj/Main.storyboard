@@ -39,7 +39,11 @@
                                                 <action selector="shareMeme:" destination="9d0-K2-U5L" id="ncz-16-FnY"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="f2i-3k-XpM"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="f2i-3k-XpM">
+                                            <connections>
+                                                <segue destination="NQg-fB-Can" kind="show" id="snH-JL-C4Y"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -85,13 +89,29 @@
                         <outlet property="cameraButton" destination="Fu6-xn-urK" id="QUk-Sz-htL"/>
                         <outlet property="imageToMeme" destination="MeT-Ts-bta" id="Fca-MV-qXc"/>
                         <outlet property="photoSelectorToolbar" destination="uuu-U8-JZe" id="rXP-Uc-kfs"/>
+                        <outlet property="shareButton" destination="rMK-eQ-3en" id="EH2-94-AbA"/>
                         <outlet property="sharingNavigationBar" destination="R8T-Af-bjX" id="QB7-4l-6Tz"/>
                         <outlet property="topTextField" destination="oSN-S1-aiK" id="HNS-M1-1fk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aaE-Hl-p09" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="326" y="293"/>
+            <point key="canvasLocation" x="-389" y="218"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="xrb-Yj-UNN">
+            <objects>
+                <tabBarController id="NQg-fB-Can" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="UfN-Yz-Hnq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vtH-99-HaX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-576" y="934"/>
         </scene>
     </scenes>
 </document>

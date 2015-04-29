@@ -14,6 +14,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
     @IBOutlet weak var topTextField: UITextField!
     
     @IBOutlet weak var bottomTextField: UITextField!
@@ -26,6 +28,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 	
 	private let BottomTextDefault = "BOTTOM"
     
+    //var memeCollection = MemeCollection()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageToMeme.backgroundColor = UIColor.grayColor()
@@ -35,7 +39,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 			NSStrokeColorAttributeName: UIColor.blackColor(),
 			NSForegroundColorAttributeName: UIColor.whiteColor(),
 			NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-			NSStrokeWidthAttributeName : -2.0
+			NSStrokeWidthAttributeName : -1.0
         ]
 		
 		topTextField.delegate = self
@@ -55,6 +59,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
+        shareButton.enabled = false
         self.subscribeToKeyboardNotifications()
     }
     
@@ -81,6 +86,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             self.imageToMeme.image = image
         }
         self.dismissViewControllerAnimated(true, completion: nil)
+        shareButton.enabled = true
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -90,6 +96,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func saveMeme(editedMemeImage: UIImage) {
         if let originalImage = self.imageToMeme.image {
             let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage, topText: topTextField.text, bottomText: bottomTextField.text)
+            MemeCollection.collection.addMemeToCollection(userGeneratedMeme)
         }
     }
     
