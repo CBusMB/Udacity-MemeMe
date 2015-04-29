@@ -28,8 +28,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 	
 	private let BottomTextDefault = "BOTTOM"
     
-    //var memeCollection = MemeCollection()
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageToMeme.backgroundColor = UIColor.grayColor()
@@ -59,15 +58,21 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
-        shareButton.enabled = false
         self.subscribeToKeyboardNotifications()
+        if imageToMeme.image == nil {
+            shareButton.enabled = false
+        } else {
+            shareButton.enabled = true
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
-
+    
+    
+    // MARK: Image Picker methods
     @IBAction func imagePicker(sender: UIBarButtonItem) {
         // use a tag to distinguish between the 2 photo options
         let photoLibraryTag = 1
@@ -86,16 +91,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             self.imageToMeme.image = image
         }
         self.dismissViewControllerAnimated(true, completion: nil)
-        shareButton.enabled = true
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // MARK: Meme saving and sharing
+    
+    /// :param: editedMemeImage The modified image to be saved as a Meme
     func saveMeme(editedMemeImage: UIImage) {
         if let originalImage = self.imageToMeme.image {
-            let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage, topText: topTextField.text, bottomText: bottomTextField.text)
+            let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
+                                       topText: topTextField.text, bottomText: bottomTextField.text)
             MemeCollection.collection.addMemeToCollection(userGeneratedMeme)
         }
     }
@@ -126,6 +134,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         return meme
     }
     
+    // MARK: Text field and keyboard subscriptions
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         sharingNavigationBar.hidden = true
         return true

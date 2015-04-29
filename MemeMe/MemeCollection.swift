@@ -10,6 +10,7 @@ import Foundation
 
 class MemeCollection
 {
+    // Singleton
     static let collection = MemeCollection()
     
     private var memes = [Meme]()
@@ -24,8 +25,9 @@ class MemeCollection
         memes.append(meme)
     }
     
-//    func removeMemeFromCollection(meme: Meme) {
-//        collection.removeAtIndex(<,#index: Int#>)
-//    }
+    /// :param: index The index of the meme to be removed from the collection
+    func removeMemeFromCollection(index: Int) {
+        memes.removeAtIndex(index)
+    }
 
 }
