@@ -105,6 +105,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
                                        topText: topTextField.text, bottomText: bottomTextField.text)
             MemeCollection.sharedCollection.addMemeToCollection(userGeneratedMeme)
+            println("end of save meme")
         }
     }
     
@@ -115,6 +116,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         self.presentViewController(activityController, animated: true, completion: nil)
         activityController.completionWithItemsHandler = {(String, Bool, [AnyObject]!, NSError) in
             self.saveMeme(userEditedMemeImage)
+            println("called saveMeme")
             self.dismissViewControllerAnimated(true, completion: nil)
 		}
     }
@@ -153,6 +155,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func keyboardWillShow(notification: NSNotification) {
+        
+        // TODO: fix this for landscape view
         self.view.frame.origin.y -= keyboardHeight(notification)
     }
     

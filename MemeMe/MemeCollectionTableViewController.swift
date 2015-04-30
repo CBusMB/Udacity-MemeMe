@@ -10,16 +10,23 @@ import UIKit
 
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
+    let memes = MemeCollection.sharedCollection
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MemeCollection.sharedCollection.memeCollection.count
+        return memes.memeCollection.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -37,14 +44,16 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
         let segueIdentifier = "tableViewDetail"
         performSegueWithIdentifier(segueIdentifier, sender: self)
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            MemeCollection.sharedCollection.removeMemeAtIndexFromCollection(indexPath.row)
+            memes.removeMemeAtIndexFromCollection(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
     // Return to MemeEditorViewController
@@ -57,7 +66,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let indexPath = tableView.indexPathForSelectedRow() {
             let detailController = segue.destinationViewController as! MemeDetailViewController
-            detailController.memeImageView.image = MemeCollection.sharedCollection.memeCollection[indexPath.row].memeImage
+            detailController.memeImage = memes.memeCollection[indexPath.row].memeImage
         }
     }
     

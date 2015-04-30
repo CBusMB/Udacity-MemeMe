@@ -10,9 +10,13 @@ import Foundation
 
 class MemeCollection
 {
-    // Singleton.  MemeCollectionTableViewController and MemeCollectionCollectionViewController both
-	// use sharedCollection as their data source
-    static let sharedCollection = MemeCollection()
+    // Singleton. Use sharedCollection to access MemeCollection class
+    class var sharedCollection: MemeCollection {
+        struct MemeSingleton {
+            static let instance: MemeCollection = MemeCollection()
+        }
+        return MemeSingleton.instance
+    }
     
     private var memes = [Meme]()
     
@@ -24,6 +28,8 @@ class MemeCollection
     
     func addMemeToCollection(meme: Meme) {
         memes.append(meme)
+        println("added meme to collection")
+        println("\(self.memeCollection.count)")
     }
     
     /// :param: index The index of the meme to be removed from the collection
