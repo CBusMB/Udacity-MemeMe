@@ -28,6 +28,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 	
 	private let BottomTextDefault = "BOTTOM"
     
+    let memes = MemeCollection.sharedCollection
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,8 +106,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         if let originalImage = self.imageToMeme.image {
             let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
                                        topText: topTextField.text, bottomText: bottomTextField.text)
-            MemeCollection.sharedCollection.addMemeToCollection(userGeneratedMeme)
-            println("end of save meme")
+            memes.addMemeToCollection(userGeneratedMeme)
         }
     }
     
@@ -116,9 +117,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         self.presentViewController(activityController, animated: true, completion: nil)
         activityController.completionWithItemsHandler = {(String, Bool, [AnyObject]!, NSError) in
             self.saveMeme(userEditedMemeImage)
-            println("called saveMeme")
             self.dismissViewControllerAnimated(true, completion: nil)
-		}
+        }
     }
     
     func generateMemeImage() -> UIImage {

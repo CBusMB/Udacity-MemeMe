@@ -11,10 +11,8 @@ import UIKit
 
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
-    let reuseIdentifier = "Cell"
+    let reuseIdentifier = "memeCell"
     let memes = MemeCollection.sharedCollection
-    let memeDetailSegue = "tableViewDetail"
-    let memeEditorSegue = "returnToMemeEditor"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +21,9 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
         collectionView?.dataSource = self
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.registerClass(MemeCollectionCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-    }
-    
-    // Return to MemeEditorViewController
-    @IBAction func createNewMeme(sender: UIBarButtonItem) {
-        performSegueWithIdentifier(memeEditorSegue, sender: self)
     }
 
     // MARK: UICollectionViewDataSource
@@ -51,6 +44,8 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
         
         return cell
     }
+    
+    
 
     // MARK: UICollectionViewDelegate
 

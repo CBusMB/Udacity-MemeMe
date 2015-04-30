@@ -11,8 +11,6 @@ import UIKit
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
     let memes = MemeCollection.sharedCollection
-    let memeDetailSegue = "tableViewDetail"
-    let memeEditorSegue = "returnToMemeEditor"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +41,10 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(memeDetailSegue, sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let memeDetailViewController = storyboard.instantiateViewControllerWithIdentifier("memeDetailViewController") as! MemeDetailViewController
+        memeDetailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
+        self.presentViewController(memeDetailViewController, animated: true, completion: nil)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -60,19 +61,10 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     // MARK: - Navigation
     
     // Return to MemeEditorViewController
-    @IBAction func createNewMeme(sender: UIBarButtonItem) {
-        performSegueWithIdentifier(memeEditorSegue, sender: self)
+    @IBAction func segueToMemeEditor(sender: UIBarButtonItem) {
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let memeEditorViewController = self.storyboard!.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
+        self.navigationController?.pushViewController(memeEditorViewController, animated: true)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == memeDetailSegue {
-            if let indexPath = tableView.indexPathForSelectedRow() {
-                let detailController = segue.destinationViewController as! MemeDetailViewController
-                detailController.memeImage = memes.memeCollection[indexPath.row].memeImage
-            }
-        
-        
-            
-        }
-    }
 }
