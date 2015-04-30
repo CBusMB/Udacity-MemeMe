@@ -104,7 +104,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         if let originalImage = self.imageToMeme.image {
             let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
                                        topText: topTextField.text, bottomText: bottomTextField.text)
-            MemeCollection.collection.addMemeToCollection(userGeneratedMeme)
+            MemeCollection.sharedCollection.addMemeToCollection(userGeneratedMeme)
         }
     }
     

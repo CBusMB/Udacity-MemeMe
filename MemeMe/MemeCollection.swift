@@ -10,8 +10,9 @@ import Foundation
 
 class MemeCollection
 {
-    // Singleton
-    static let collection = MemeCollection()
+    // Singleton.  MemeCollectionTableViewController and MemeCollectionCollectionViewController both
+	// use sharedCollection as their data source
+    static let sharedCollection = MemeCollection()
     
     private var memes = [Meme]()
     
@@ -26,7 +27,7 @@ class MemeCollection
     }
     
     /// :param: index The index of the meme to be removed from the collection
-    func removeMemeFromCollection(index: Int) {
+    func removeMemeAtIndexFromCollection(index: Int) {
         memes.removeAtIndex(index)
     }
 

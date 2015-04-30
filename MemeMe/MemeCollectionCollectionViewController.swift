@@ -12,7 +12,6 @@ let reuseIdentifier = "Cell"
 
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,15 +29,11 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    @IBAction func createNewMeme(sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditor") as! MemeEditorViewController
+        self.presentViewController(memeEditorViewController, animated: true, completion: nil)
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
