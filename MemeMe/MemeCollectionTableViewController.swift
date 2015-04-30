@@ -11,6 +11,8 @@ import UIKit
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
     let memes = MemeCollection.sharedCollection
+    let memeDetailSegue = "tableViewDetail"
+    let memeEditorSegue = "returnToMemeEditor"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +35,15 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
         let cellID = "memeCell"
         let ellipsis = "..."
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel!.text = MemeCollection.sharedCollection.memeCollection[indexPath.row].topText + ellipsis +
-                               MemeCollection.sharedCollection.memeCollection[indexPath.row].bottomText
-        cell.imageView?.image = MemeCollection.sharedCollection.memeCollection[indexPath.row].memeImage
+        cell.textLabel!.text = memes.memeCollection[indexPath.row].topText + ellipsis +
+                               memes.memeCollection[indexPath.row].bottomText
+        cell.imageView?.image = memes.memeCollection[indexPath.row].memeImage
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let segueIdentifier = "tableViewDetail"
-        performSegueWithIdentifier(segueIdentifier, sender: self)
+        performSegueWithIdentifier(memeDetailSegue, sender: self)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -56,18 +57,22 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
         }
     }
     
+    // MARK: - Navigation
+    
     // Return to MemeEditorViewController
     @IBAction func createNewMeme(sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditor") as! MemeEditorViewController
-        self.presentViewController(memeEditorViewController, animated: true, completion: nil)
+        performSegueWithIdentifier(memeEditorSegue, sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let indexPath = tableView.indexPathForSelectedRow() {
-            let detailController = segue.destinationViewController as! MemeDetailViewController
-            detailController.memeImage = memes.memeCollection[indexPath.row].memeImage
+        if segue.identifier == memeDetailSegue {
+            if let indexPath = tableView.indexPathForSelectedRow() {
+                let detailController = segue.destinationViewController as! MemeDetailViewController
+                detailController.memeImage = memes.memeCollection[indexPath.row].memeImage
+            }
+        
+        
+            
         }
     }
-    
 }

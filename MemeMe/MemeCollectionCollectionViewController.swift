@@ -8,31 +8,29 @@
 
 import UIKit
 
-let reuseIdentifier = "Cell"
 
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
+    let reuseIdentifier = "Cell"
+    let memes = MemeCollection.sharedCollection
+    let memeDetailSegue = "tableViewDetail"
+    let memeEditorSegue = "returnToMemeEditor"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
 
         // Register cell classes
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
+    // Return to MemeEditorViewController
     @IBAction func createNewMeme(sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditor") as! MemeEditorViewController
-        self.presentViewController(memeEditorViewController, animated: true, completion: nil)
+        performSegueWithIdentifier(memeEditorSegue, sender: self)
     }
 
     // MARK: UICollectionViewDataSource
@@ -44,15 +42,13 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //#warning Incomplete method implementation -- Return the number of items in the section
-        return 0
+        return memes.memeCollection.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
     
-        // Configure the cell
-    
+        
         return cell
     }
 
