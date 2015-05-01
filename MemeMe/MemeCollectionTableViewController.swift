@@ -10,6 +10,7 @@ import UIKit
 
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
+    private let segueIdentifier = "tableToDetail"
     let memes = MemeCollection.sharedCollection
     
     override func viewDidLoad() {
@@ -41,10 +42,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let memeDetailViewController = storyboard.instantiateViewControllerWithIdentifier("memeDetailViewController") as! MemeDetailViewController
-        memeDetailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
-        self.presentViewController(memeDetailViewController, animated: true, completion: nil)
+        performSegueWithIdentifier(segueIdentifier, sender: self)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -60,11 +58,20 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     
     // MARK: - Navigation
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == segueIdentifier {
+            if let indexPath = tableView.indexPathForSelectedRow() {
+                let detailViewController = segue.destinationViewController as! MemeDetailViewController
+                detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
+            }
+        }
+    }
+    
     // Return to MemeEditorViewController
     @IBAction func segueToMemeEditor(sender: UIBarButtonItem) {
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let memeEditorViewController = self.storyboard!.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
-        self.navigationController?.pushViewController(memeEditorViewController, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
+        self.presentViewController(memeEditorViewController, animated: true, completion: nil)
     }
     
 }

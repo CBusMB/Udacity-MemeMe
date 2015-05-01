@@ -28,6 +28,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 	
 	private let BottomTextDefault = "BOTTOM"
     
+    private let segueIdentifier = "showSentMemes"
+    
     let memes = MemeCollection.sharedCollection
     
     // MARK: Lifecycle
@@ -117,7 +119,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         self.presentViewController(activityController, animated: true, completion: nil)
         activityController.completionWithItemsHandler = {(String, Bool, [AnyObject]!, NSError) in
             self.saveMeme(userEditedMemeImage)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
         }
     }
     

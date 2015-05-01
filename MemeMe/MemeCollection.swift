@@ -10,8 +10,8 @@ import Foundation
 
 class MemeCollection
 {
-    // Singleton. Use let xxx = MemeCollection.sharedCollection to access MemeCollection class
-    // public properties and methods
+    /* Singleton. Use let xxx = MemeCollection.sharedCollection to access MemeCollection class
+       public properties and methods */
     class var sharedCollection: MemeCollection {
         struct MemeSingleton {
             static let instance: MemeCollection = MemeCollection()
@@ -29,8 +29,6 @@ class MemeCollection
     
     func addMemeToCollection(meme: Meme) {
         memes.append(meme)
-        println("added meme to collection")
-        println("\(self.memeCollection.count)")
     }
     
     /// :param: index The index of the meme to be removed from the collection

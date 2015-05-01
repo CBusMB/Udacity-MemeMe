@@ -12,10 +12,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let memes = MemeCollection.sharedCollection
+        var rootViewController: UIViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if memes.memeCollection.isEmpty {
+            rootViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
+            self.window?.rootViewController = rootViewController
+        } else {
+            rootViewController = storyboard.instantiateViewControllerWithIdentifier("memeCollectionTableView") as! MemeCollectionTableViewController
+            self.window?.rootViewController = rootViewController
+        }
+        
         return true
     }
 

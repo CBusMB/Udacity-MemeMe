@@ -11,36 +11,30 @@ import UIKit
 
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
-    let reuseIdentifier = "memeCell"
+    private let reuseIdentifier = "memeCell"
     let memes = MemeCollection.sharedCollection
+    private let segueIdentifier = "collectionToDetail"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.delegate = self
         collectionView?.dataSource = self
-
-        // Register cell classes
-        self.collectionView!.registerClass(MemeCollectionCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
 
     // MARK: UICollectionViewDataSource
-
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        //#warning Incomplete method implementation -- Return the number of sections
-        return 0
-    }
-
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memes.memeCollection.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-    
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
+        
+        let imageView = UIImageView(image: memes.memeCollection[indexPath.item].image)
+        imageView.contentMode = .ScaleAspectFill
+        // TODO: add meme text
+        cell.backgroundView = imageView
         
         return cell
     }
@@ -77,5 +71,24 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     
     }
     */
+    
+    // MARK: Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == segueIdentifier {
+            let cell = sender as! UICollectionViewCell
+            if let indexPath = self.collectionView?.indexPathForCell(cell) {
+                let detailViewController = segue.destinationViewController as! MemeDetailViewController
+                detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
+            }
+        }
+        
+    }
+    
+    // Return to MemeEditorViewController
+    @IBAction func segueToMemeEditor(sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
+        self.presentViewController(memeEditorViewController, animated: true, completion: nil)
+    }
 
 }
