@@ -96,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aaE-Hl-p09" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-682" y="436"/>
+            <point key="canvasLocation" x="-1397" y="1276"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="xrb-Yj-UNN">
@@ -115,7 +115,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vtH-99-HaX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-843" y="1197"/>
+            <point key="canvasLocation" x="-701" y="1276"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="gbU-tE-KG9">
@@ -159,13 +159,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcA-Wl-M4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="870" y="934"/>
+            <point key="canvasLocation" x="754" y="934"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="90f-Jo-4aH">
             <objects>
                 <collectionViewController id="VmG-CJ-wnk" customClass="MemeCollectionCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Z6N-Fc-pgz">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" id="Z6N-Fc-pgz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -182,10 +182,61 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="171" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-Mi-fIQ">
+                                            <rect key="frame" x="8" y="8" width="155" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="Zmm-bt-lGE"/>
+                                            </constraints>
+                                            <attributedString key="attributedText">
+                                                <fragment content="top text">
+                                                    <attributes>
+                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="0.5"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RKR-lc-ZUc">
+                                            <rect key="frame" x="8" y="72" width="155" height="40"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="bottom text">
+                                                    <attributes>
+                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="2"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="Sic-Mi-fIQ" firstAttribute="top" secondItem="mWj-VG-Xn9" secondAttribute="topMargin" id="0Fs-q3-2qB"/>
+                                    <constraint firstItem="RKR-lc-ZUc" firstAttribute="top" secondItem="Sic-Mi-fIQ" secondAttribute="bottom" constant="4" id="NCw-CO-wVn"/>
+                                    <constraint firstItem="Sic-Mi-fIQ" firstAttribute="trailing" secondItem="mWj-VG-Xn9" secondAttribute="trailingMargin" id="Oh5-f8-8gk"/>
+                                    <constraint firstItem="Sic-Mi-fIQ" firstAttribute="trailing" secondItem="RKR-lc-ZUc" secondAttribute="trailing" id="Q4c-0H-0gw"/>
+                                    <constraint firstItem="Sic-Mi-fIQ" firstAttribute="leading" secondItem="RKR-lc-ZUc" secondAttribute="leading" id="Ynh-EN-wFL"/>
+                                    <constraint firstItem="RKR-lc-ZUc" firstAttribute="leading" secondItem="mWj-VG-Xn9" secondAttribute="leadingMargin" id="dmh-sP-4Ac"/>
+                                    <constraint firstItem="RKR-lc-ZUc" firstAttribute="bottom" secondItem="mWj-VG-Xn9" secondAttribute="bottomMargin" id="ij3-Em-3bt"/>
+                                    <constraint firstItem="Sic-Mi-fIQ" firstAttribute="leading" secondItem="mWj-VG-Xn9" secondAttribute="leadingMargin" id="l8k-Ci-yyn"/>
+                                    <constraint firstItem="RKR-lc-ZUc" firstAttribute="trailing" secondItem="mWj-VG-Xn9" secondAttribute="trailingMargin" id="sTY-Wf-PiK"/>
+                                </constraints>
                                 <size key="customSize" width="171" height="120"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Q4c-0H-0gw"/>
+                                        <exclude reference="Ynh-EN-wFL"/>
+                                        <exclude reference="NCw-CO-wVn"/>
+                                    </mask>
+                                </variation>
                                 <connections>
+                                    <outlet property="memeBottomText" destination="RKR-lc-ZUc" id="tB3-FH-92v"/>
+                                    <outlet property="memeTopText" destination="Sic-Mi-fIQ" id="3qP-PE-My5"/>
                                     <segue destination="qKw-cQ-bAe" kind="show" identifier="collectionToDetail" id="jdQ-Oc-t7A"/>
                                 </connections>
                             </collectionViewCell>
@@ -205,7 +256,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZL-Bc-a4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="880" y="1646"/>
+            <point key="canvasLocation" x="754" y="1646"/>
         </scene>
         <!--Meme Detail View Controller-->
         <scene sceneID="xE0-2D-M4L">
@@ -237,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Qj-a4-ItZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="1340"/>
+            <point key="canvasLocation" x="1476" y="1276"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aYf-ro-MI1">

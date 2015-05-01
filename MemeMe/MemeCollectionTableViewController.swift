@@ -10,7 +10,7 @@ import UIKit
 
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
-    private let segueIdentifier = "tableToDetail"
+    private let SegueIdentifier = "tableToDetail"
     let memes = MemeCollection.sharedCollection
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(segueIdentifier, sender: self)
+        performSegueWithIdentifier(SegueIdentifier, sender: self)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -59,7 +59,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == segueIdentifier {
+        if segue.identifier == SegueIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow() {
                 let detailViewController = segue.destinationViewController as! MemeDetailViewController
                 detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage

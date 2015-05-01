@@ -9,16 +9,15 @@
 import UIKit
 
 
-class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
+class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource
 {
-    private let reuseIdentifier = "memeCell"
+    private let ReuseIdentifier = "memeCell"
     let memes = MemeCollection.sharedCollection
-    private let segueIdentifier = "collectionToDetail"
+    private let SegueIdentifier = "collectionToDetail"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.delegate = self
         collectionView?.dataSource = self
     }
 
@@ -29,66 +28,46 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ReuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
         
+        // create imageView with meme image and set as cell's background image
         let imageView = UIImageView(image: memes.memeCollection[indexPath.item].image)
         imageView.contentMode = .ScaleAspectFill
-        // TODO: add meme text
         cell.backgroundView = imageView
+        
+        let memeTextAttributes = [
+            NSStrokeColorAttributeName: UIColor.blackColor(),
+            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 16)!,
+            NSStrokeWidthAttributeName : -1.0
+        ]
+        
+        // set text attributes to NSAttributedString of meme text and assign to cell labels
+        let memeTopText = memes.memeCollection[indexPath.item].topText
+        let memeBottomText = memes.memeCollection[indexPath.item].bottomText
+        let formattedTopText = NSAttributedString(string: memeTopText, attributes: memeTextAttributes)
+        let formattedBottomText = NSAttributedString(string: memeBottomText, attributes: memeTextAttributes)
+        cell.memeTopText.attributedText = formattedTopText
+        cell.memeBottomText.attributedText = formattedBottomText
         
         return cell
     }
     
-    
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-    
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == segueIdentifier {
+        if segue.identifier == SegueIdentifier {
             let cell = sender as! UICollectionViewCell
             if let indexPath = self.collectionView?.indexPathForCell(cell) {
                 let detailViewController = segue.destinationViewController as! MemeDetailViewController
                 detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
             }
         }
-        
     }
     
-    // Return to MemeEditorViewController
+    // Go to MemeEditorViewController
     @IBAction func segueToMemeEditor(sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
         self.presentViewController(memeEditorViewController, animated: true, completion: nil)
     }
-
 }

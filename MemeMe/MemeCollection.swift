@@ -10,7 +10,7 @@ import Foundation
 
 class MemeCollection
 {
-    /* Singleton. Use let xxx = MemeCollection.sharedCollection to access MemeCollection class
+    /* Singleton. Use let xxx = MemeCollection.sharedCollection to access MemeCollection
        public properties and methods */
     class var sharedCollection: MemeCollection {
         struct MemeSingleton {
