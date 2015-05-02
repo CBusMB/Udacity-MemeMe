@@ -17,11 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MeT-Ts-bta">
-                                <rect key="frame" x="0.0" y="32" width="600" height="520"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MeT-Ts-bta">
+                                <rect key="frame" x="0.0" y="32" width="600" height="531"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oSN-S1-aiK">
-                                <rect key="frame" x="16" y="102" width="568" height="30"/>
+                                <rect key="frame" x="16" y="94" width="568" height="30"/>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -31,7 +31,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8T-Af-bjX">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem id="Z9i-vz-W3b">
                                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="rMK-eQ-3en">
@@ -67,14 +67,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MeT-Ts-bta" firstAttribute="leading" secondItem="zox-fX-qgr" secondAttribute="leadingMargin" constant="-16" id="7Ai-Sh-5FD"/>
-                            <constraint firstItem="R8T-Af-bjX" firstAttribute="top" secondItem="88M-z0-KdC" secondAttribute="bottom" constant="8" id="99Y-it-Dpq"/>
+                            <constraint firstItem="R8T-Af-bjX" firstAttribute="top" secondItem="88M-z0-KdC" secondAttribute="bottom" symbolic="YES" id="99Y-it-Dpq"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="leading" secondItem="R8T-Af-bjX" secondAttribute="leading" id="Fi5-aK-juJ"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="bottom" secondItem="E97-JZ-EKM" secondAttribute="top" id="I7E-wI-enm"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="trailing" secondItem="oSN-S1-aiK" secondAttribute="trailing" id="Ii0-kj-Ect"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MeT-Ts-bta" secondAttribute="trailing" constant="-16" id="Jzf-dq-HKE"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="leading" secondItem="oSN-S1-aiK" secondAttribute="leading" id="Lqp-bT-LY0"/>
                             <constraint firstItem="MeT-Ts-bta" firstAttribute="top" secondItem="zox-fX-qgr" secondAttribute="topMargin" constant="32" id="NbE-OJ-WxX"/>
-                            <constraint firstItem="E97-JZ-EKM" firstAttribute="top" secondItem="MeT-Ts-bta" secondAttribute="bottom" constant="48" id="RdA-Bk-7Pk"/>
+                            <constraint firstItem="E97-JZ-EKM" firstAttribute="top" secondItem="MeT-Ts-bta" secondAttribute="bottom" constant="37" id="RdA-Bk-7Pk"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="R8T-Af-bjX" secondAttribute="centerX" id="Yg0-FG-VAa"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="leading" secondItem="MeT-Ts-bta" secondAttribute="leading" id="Znx-5G-Ihq"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="uuu-U8-JZe" secondAttribute="centerX" id="ci5-mi-f2i"/>
@@ -170,7 +170,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0if-gg-kpM">
-                            <size key="itemSize" width="120" height="120"/>
+                            <size key="itemSize" width="110" height="110"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

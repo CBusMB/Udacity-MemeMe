@@ -45,10 +45,10 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
         // set text attributes to NSAttributedString of meme text and assign to cell labels
         let memeTopText = memes.memeCollection[indexPath.item].topText
         let memeBottomText = memes.memeCollection[indexPath.item].bottomText
-        let formattedTopText = NSAttributedString(string: memeTopText, attributes: memeTextAttributes)
-        let formattedBottomText = NSAttributedString(string: memeBottomText, attributes: memeTextAttributes)
-        cell.memeTopText.attributedText = formattedTopText
-        cell.memeBottomText.attributedText = formattedBottomText
+        let attributedTopText = NSAttributedString(string: memeTopText, attributes: memeTextAttributes)
+        let attributedBottomText = NSAttributedString(string: memeBottomText, attributes: memeTextAttributes)
+        cell.memeTopText.attributedText = attributedTopText
+        cell.memeBottomText.attributedText = attributedBottomText
         
         return cell
     }
@@ -60,6 +60,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
             if let indexPath = self.collectionView?.indexPathForCell(cell) {
                 let detailViewController = segue.destinationViewController as! MemeDetailViewController
                 detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
+                detailViewController.hidesBottomBarWhenPushed = true
             }
         }
     }

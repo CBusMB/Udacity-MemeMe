@@ -63,6 +63,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
             if let indexPath = tableView.indexPathForSelectedRow() {
                 let detailViewController = segue.destinationViewController as! MemeDetailViewController
                 detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
+                detailViewController.hidesBottomBarWhenPushed = true
             }
         }
     }

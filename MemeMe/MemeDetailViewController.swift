@@ -14,10 +14,32 @@ class MemeDetailViewController: UIViewController
     
     @IBOutlet weak var memeImageView: UIImageView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Tap recognizer
+        let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
+        imageTap.numberOfTapsRequired = 1
+        imageTap.numberOfTouchesRequired = 1
+        memeImageView.addGestureRecognizer(imageTap)
+        memeImageView.userInteractionEnabled = true
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         memeImageView.image = memeImage
+    }
+    
+    func imageTapped(recognizer: UITapGestureRecognizer) {
+        if recognizer.state == UIGestureRecognizerState.Ended {
+            // hide the navigationBar to better see the meme
+            if !navigationController!.navigationBarHidden {
+                navigationController?.setNavigationBarHidden(true, animated: true)
+            } else {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }
     }
 
 }

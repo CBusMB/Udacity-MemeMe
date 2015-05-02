@@ -12,13 +12,5 @@ class MemeCollectionCollectionViewCell: UICollectionViewCell
 {
     @IBOutlet weak var memeTopText: UILabel!
     
-    @IBOutlet weak var memeBottomText: UILabel!
-    
-    let memeTextAttributes = [
-        NSStrokeColorAttributeName: UIColor.blackColor(),
-        NSForegroundColorAttributeName: UIColor.whiteColor(),
-        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 16)!,
-        NSStrokeWidthAttributeName : -1.0
-    ]
-    
+    @IBOutlet weak var memeBottomText: UILabel!    
 }

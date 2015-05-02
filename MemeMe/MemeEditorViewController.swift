@@ -35,9 +35,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.imageToMeme.backgroundColor = UIColor.grayColor()
-        self.sharingNavigationBar.backgroundColor = UIColor.grayColor()
 		
+        // textField attributes
 		let memeTextAttributes = [
 			NSStrokeColorAttributeName: UIColor.blackColor(),
 			NSForegroundColorAttributeName: UIColor.whiteColor(),
@@ -57,6 +58,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         bottomTextField.backgroundColor = UIColor.clearColor()
 		bottomTextField.textAlignment = .Center
         bottomTextField.text = BottomTextDefault
+        
+        // Tap recognizer
+        let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
+        imageTap.numberOfTapsRequired = 1
+        imageTap.numberOfTouchesRequired = 1
+        imageToMeme.addGestureRecognizer(imageTap)
+        imageToMeme.userInteractionEnabled = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -105,6 +113,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     /// :param: editedMemeImage The modified image to be saved as a Meme
     func saveMeme(editedMemeImage: UIImage) {
+        // Make sure we have an image
         if let originalImage = self.imageToMeme.image {
             let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
                                        topText: topTextField.text, bottomText: bottomTextField.text)
@@ -117,9 +126,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let activityItem = [userEditedMemeImage]
         let activityController = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
         self.presentViewController(activityController, animated: true, completion: nil)
-        activityController.completionWithItemsHandler = {(String, Bool, [AnyObject]!, NSError) in
-            self.saveMeme(userEditedMemeImage)
-            self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
+        activityController.completionWithItemsHandler = {(activityType, completed, returnedItems, error) in
+            if completed {
+                // user completed sharing activity
+                self.saveMeme(userEditedMemeImage)
+                self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
+            } else {
+                // user cancelled sharing activity
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
     }
     
@@ -138,9 +153,26 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         return meme
     }
     
-    // MARK: Text field and keyboard subscriptions
+    // MARK: Tap gesture recognizer
+    func imageTapped(recognizer: UITapGestureRecognizer) {
+        if imageToMeme.image != nil {
+            if recognizer.state == UIGestureRecognizerState.Ended {
+                // hide the top and bottom toolbars to better see the meme
+                if photoSelectorToolbar.hidden && sharingNavigationBar.hidden {
+                    photoSelectorToolbar.hidden = false
+                    sharingNavigationBar.hidden = false
+                } else {
+                    photoSelectorToolbar.hidden = true
+                    sharingNavigationBar.hidden = true
+                }
+            }
+        }
+    }
+    
+    // MARK: Text field delegate, keyboard subscriptions
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         sharingNavigationBar.hidden = true
+        photoSelectorToolbar.hidden = true
         return true
     }
     
@@ -153,6 +185,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         sharingNavigationBar.hidden = false
+        photoSelectorToolbar.hidden = false
         return true
     }
     
@@ -160,6 +193,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         // TODO: fix this for landscape view
         self.view.frame.origin.y -= keyboardHeight(notification)
+        
     }
     
     func keyboardWillHide(notification: NSNotification) {
@@ -180,7 +214,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
+    } 
 }
 
