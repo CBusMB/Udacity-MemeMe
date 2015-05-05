@@ -212,6 +212,12 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGL-UY-qfd">
+                                            <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                            <state key="normal" image="delete">
+                                                <color key="titleShadowColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -235,9 +241,9 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="deleteButton" destination="TGL-UY-qfd" id="Fpa-cu-121"/>
                                     <outlet property="memeBottomText" destination="RKR-lc-ZUc" id="tB3-FH-92v"/>
                                     <outlet property="memeTopText" destination="Sic-Mi-fIQ" id="3qP-PE-My5"/>
-                                    <segue destination="qKw-cQ-bAe" kind="show" identifier="collectionToDetail" id="jdQ-Oc-t7A"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -247,12 +253,20 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="cz9-iq-4q9">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="dlN-oE-v3Z">
+                            <connections>
+                                <action selector="toggleEditing:" destination="VmG-CJ-wnk" id="2v3-Qk-ipB"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Lnc-9Q-9a0">
                             <connections>
                                 <action selector="segueToMemeEditor:" destination="VmG-CJ-wnk" id="HXg-jU-17P"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="dlN-oE-v3Z" id="RPO-3m-KMe"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZL-Bc-a4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -261,7 +275,7 @@
         <!--Meme Detail View Controller-->
         <scene sceneID="xE0-2D-M4L">
             <objects>
-                <viewController id="qKw-cQ-bAe" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="memeDetailViewController" id="qKw-cQ-bAe" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ivq-hL-cmW"/>
                         <viewControllerLayoutGuide type="bottom" id="8jC-Nm-YPH"/>
@@ -331,9 +345,7 @@
     </scenes>
     <resources>
         <image name="collection_60x60" width="30" height="30"/>
+        <image name="delete" width="128" height="128"/>
         <image name="table_60x60" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="jdQ-Oc-t7A"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -35,5 +35,4 @@ class MemeCollection
     func removeMemeAtIndexFromCollection(index: Int) {
         memes.removeAtIndex(index)
     }
-
 }

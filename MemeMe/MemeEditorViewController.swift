@@ -59,7 +59,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 		bottomTextField.textAlignment = .Center
         bottomTextField.text = BottomTextDefault
         
-        // Tap recognizer
+        // Tap recognizers
         let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
         imageTap.numberOfTapsRequired = 1
         imageTap.numberOfTouchesRequired = 1
@@ -133,7 +133,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
                 self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
             } else {
                 // user cancelled sharing activity
-                self.dismissViewControllerAnimated(true, completion: nil)
+                activityController.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }
@@ -155,9 +155,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: Tap gesture recognizer
     func imageTapped(recognizer: UITapGestureRecognizer) {
-        if imageToMeme.image != nil {
-            if recognizer.state == UIGestureRecognizerState.Ended {
-                // hide the top and bottom toolbars to better see the meme
+        if recognizer.state == UIGestureRecognizerState.Ended {
+            // treat tapping the image as pressing return if the user has edited either text field
+            if topTextField.isFirstResponder() {
+                textFieldShouldReturn(topTextField)
+            } else if bottomTextField.isFirstResponder() {
+                textFieldShouldReturn(bottomTextField)
+              // hide the top and bottom toolbars to better see the meme
+            } else if imageToMeme.image != nil {
                 if photoSelectorToolbar.hidden && sharingNavigationBar.hidden {
                     photoSelectorToolbar.hidden = false
                     sharingNavigationBar.hidden = false
