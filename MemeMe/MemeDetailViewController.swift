@@ -17,6 +17,8 @@ class MemeDetailViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Meme", style: .Plain, target: self, action: "segueToMemeEditor")
+        
         // Tap recognizer
         let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
         imageTap.numberOfTapsRequired = 1
@@ -41,5 +43,12 @@ class MemeDetailViewController: UIViewController
             }
         }
     }
+    
+//    func segueToMemeEditor() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let memeEditor = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
+//        
+//        self.presentViewController(memeEditor, animated: true, completion: nil)
+//    }
 
 }

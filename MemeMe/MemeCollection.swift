@@ -21,6 +21,8 @@ class MemeCollection
     
     private var memes = [Meme]()
     
+    var currentlySelectedIndex: Int?
+    
     var memeCollection: [Meme] {
         get {
             return memes

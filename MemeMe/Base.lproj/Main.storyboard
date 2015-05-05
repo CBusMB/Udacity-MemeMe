@@ -139,9 +139,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="qKw-cQ-bAe" kind="show" id="zf4-58-IMI"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

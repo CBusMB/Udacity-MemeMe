@@ -29,7 +29,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
-        
+        // toggle editimg mode when Edit/Done button is tapped
         if editing {
             editingCollectionView = true
         } else {
@@ -76,6 +76,8 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
         // Add the UIButton to the collection view
         cell.deleteButton.layer.setValue(indexPath.item, forKey: "index")
         cell.deleteButton.addTarget(self, action: "removeMemesFromCollectionView:", forControlEvents: .TouchUpInside)
+        
+        // hide the in-cell delete button if not in editing mode
         if editingCollectionView {
             cell.deleteButton.hidden = false
         } else {

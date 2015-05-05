@@ -24,13 +24,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBOutlet weak var sharingNavigationBar: UINavigationBar!
     
+    var memeImage: UIImage?
+    
     private let TopTextDefault = "TOP"
 	
 	private let BottomTextDefault = "BOTTOM"
     
-    private let segueIdentifier = "showSentMemes"
-    
     let memes = MemeCollection.sharedCollection
+    
+    private let segueIdentifier = "showSentMemes"
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -69,13 +71,21 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // check if device has camera
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
+        
+        // setup keyboard notifications
         self.subscribeToKeyboardNotifications()
-        if imageToMeme.image == nil {
+        
+        if memeImage == nil {
             shareButton.enabled = false
         } else {
             shareButton.enabled = true
         }
+        
+        // set imageToMeme if we have already have an image
+        imageToMeme.image = memeImage
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -100,7 +110,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.imageToMeme.image = image
+            memeImage = image
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -114,7 +124,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     /// :param: editedMemeImage The modified image to be saved as a Meme
     func saveMeme(editedMemeImage: UIImage) {
         // Make sure we have an image
-        if let originalImage = self.imageToMeme.image {
+        if let originalImage = self.memeImage {
             let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
                                        topText: topTextField.text, bottomText: bottomTextField.text)
             memes.addMemeToCollection(userGeneratedMeme)
