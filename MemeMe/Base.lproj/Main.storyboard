@@ -140,7 +140,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="qKw-cQ-bAe" kind="show" identifier="tableToDetail" id="e9N-WO-Bj2"/>
+                                    <segue destination="qKw-cQ-bAe" kind="show" id="zf4-58-IMI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -253,20 +253,12 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="cz9-iq-4q9">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="dlN-oE-v3Z">
-                            <connections>
-                                <action selector="toggleEditing:" destination="VmG-CJ-wnk" id="2v3-Qk-ipB"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Lnc-9Q-9a0">
                             <connections>
                                 <action selector="segueToMemeEditor:" destination="VmG-CJ-wnk" id="HXg-jU-17P"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="editButton" destination="dlN-oE-v3Z" id="RPO-3m-KMe"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZL-Bc-a4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -13,17 +13,35 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
 {
     let memes = MemeCollection.sharedCollection
     private let ReuseIdentifier = "memeCell"
-    private let SegueIdentifier = "collectionToDetail"
-    
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    
-    private var editingCollectionView: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.dataSource = self
-        collectionView?.delegate = self   
+        collectionView?.delegate = self
+        navigationItem.leftBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView?.reloadData()
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        
+        if editing {
+            editingCollectionView = true
+        } else {
+            editingCollectionView = false
+        }
+    }
+    
+    private var editingCollectionView: Bool = false {
+        didSet {
+            // hide or show the in-cell delete button when the Edit/Done button is tapped
+            toggleDeleteButtonHidden(editingCollectionView)
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -75,20 +93,6 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
         detailViewController.memeImage = memes.memeCollection[indexPath.item].memeImage
         detailViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(detailViewController, animated: true)
-    }
-    
-    @IBAction func toggleEditing(sender: UIBarButtonItem) {
-        if !editingCollectionView {
-            editButton.title = "Done"
-            editButton.style = .Done
-            editingCollectionView = true
-            toggleDeleteButtonHidden(editingCollectionView)
-        } else {
-            editButton.title = "Edit"
-            editButton.style = .Plain
-            editingCollectionView = false  
-            toggleDeleteButtonHidden(editingCollectionView)
-        }
     }
     
     func toggleDeleteButtonHidden(buttonVisibilityToggle: Bool) {
