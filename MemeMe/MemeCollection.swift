@@ -19,22 +19,21 @@ class MemeCollection
     return MemeSingleton.instance
   }
   
+  // private array, accessed from memeCollection
   private var memes = [Meme]()
-  
-  var currentlySelectedIndex: Int?
-  
+ 
   var memeCollection: [Meme] {
     get {
       return memes
     }
   }
   
-  func addMemeToCollection(#meme: Meme) {
+  func addMemeToCollection(meme: Meme) {
     memes.append(meme)
   }
   
   /// :param: index The index of the meme to be removed from the collection
   func removeMemeFromCollection(#atIndex: Int) {
-    memes.removeAtIndex(index)
+    memes.removeAtIndex(atIndex)
   }
 }

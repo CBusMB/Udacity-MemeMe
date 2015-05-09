@@ -10,7 +10,7 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
 {
-  @IBOutlet weak var imageToMeme: UIImageView!
+  @IBOutlet weak var imageToMemeView: UIImageView!
   @IBOutlet weak var cameraButton: UIBarButtonItem!
   @IBOutlet weak var shareButton: UIBarButtonItem!
   @IBOutlet weak var topTextField: UITextField!
@@ -28,7 +28,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.imageToMeme.backgroundColor = UIColor.grayColor()
+    imageToMemeView.backgroundColor = UIColor.grayColor()
     
     // textField attributes
     let memeTextAttributes = [
@@ -55,8 +55,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
     imageTap.numberOfTapsRequired = 1
     imageTap.numberOfTouchesRequired = 1
-    imageToMeme.addGestureRecognizer(imageTap)
-    imageToMeme.userInteractionEnabled = true
+    imageToMemeView.addGestureRecognizer(imageTap)
+    imageToMemeView.userInteractionEnabled = true
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -75,7 +75,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     // set imageToMeme if we have already have an image
-    imageToMeme.image = memeImage
+    imageToMemeView.image = memeImage
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -117,7 +117,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     if let originalImage = self.memeImage {
       let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
         topText: topTextField.text, bottomText: bottomTextField.text)
-      memes.addMemeToCollection(meme: userGeneratedMeme)
+      memes.addMemeToCollection(userGeneratedMeme)
     }
   }
   
@@ -140,16 +140,16 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   func generateMemeImage() -> UIImage {
     // hide the navigationBar and toolBar so that they aren't part of the meme
-    self.sharingNavigationBar.hidden = true
-    self.photoSelectorToolbar.hidden = true
+    sharingNavigationBar.hidden = true
+    photoSelectorToolbar.hidden = true
     
     UIGraphicsBeginImageContext(self.view.frame.size)
     self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
     let meme = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    self.sharingNavigationBar.hidden = false
-    self.photoSelectorToolbar.hidden = false
+    sharingNavigationBar.hidden = false
+    photoSelectorToolbar.hidden = false
     return meme
   }
   
@@ -162,7 +162,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       } else if bottomTextField.isFirstResponder() {
         textFieldShouldReturn(bottomTextField)
         // hide the top and bottom toolbars to better see the meme
-      } else if imageToMeme.image != nil {
+      } else if imageToMemeView.image != nil {
         if photoSelectorToolbar.hidden && sharingNavigationBar.hidden {
           photoSelectorToolbar.hidden = false
           sharingNavigationBar.hidden = false
@@ -195,14 +195,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func keyboardWillShow(notification: NSNotification) {
-    
-    // TODO: fix this for landscape view
-    self.view.frame.origin.y -= keyboardHeight(notification)
+    self.view.frame.origin.y -= (keyboardHeight(notification) / 1.8)
     
   }
   
   func keyboardWillHide(notification: NSNotification) {
-    self.view.frame.origin.y += keyboardHeight(notification)
+    self.view.frame.origin.y += (keyboardHeight(notification) / 1.8)
   }
   
   func keyboardHeight(notification: NSNotification) -> CGFloat {

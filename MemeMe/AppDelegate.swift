@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     var rootViewController: UIViewController
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     
+    // if there are not any saved memes, launch the app with the table view as the first VC
     if memes.memeCollection.isEmpty {
       rootViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
       self.window?.rootViewController = rootViewController

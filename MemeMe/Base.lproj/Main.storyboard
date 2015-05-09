@@ -78,9 +78,19 @@
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="R8T-Af-bjX" secondAttribute="centerX" id="Yg0-FG-VAa"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="leading" secondItem="MeT-Ts-bta" secondAttribute="leading" id="Znx-5G-Ihq"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="uuu-U8-JZe" secondAttribute="centerX" id="ci5-mi-f2i"/>
-                            <constraint firstItem="oSN-S1-aiK" firstAttribute="top" secondItem="R8T-Af-bjX" secondAttribute="bottom" constant="30" id="mEq-51-JyR"/>
+                            <constraint firstItem="oSN-S1-aiK" firstAttribute="top" secondItem="R8T-Af-bjX" secondAttribute="bottom" constant="30" id="mEq-51-JyR">
+                                <variation key="heightClass=regular" constant="60"/>
+                                <variation key="widthClass=regular" constant="58"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="59"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="30"/>
+                            </constraint>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="leading" secondItem="MeT-Ts-bta" secondAttribute="trailing" constant="-584" id="tWl-sk-2rt"/>
-                            <constraint firstAttribute="bottom" secondItem="Fb1-1s-wYp" secondAttribute="bottom" constant="70" id="v2a-h0-mBr"/>
+                            <constraint firstAttribute="bottom" secondItem="Fb1-1s-wYp" secondAttribute="bottom" constant="70" id="v2a-h0-mBr">
+                                <variation key="heightClass=regular" constant="95"/>
+                                <variation key="widthClass=compact" constant="107"/>
+                                <variation key="widthClass=regular" constant="85"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="90"/>
+                            </constraint>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="MeT-Ts-bta" secondAttribute="centerX" id="xXl-Z1-ahT"/>
                         </constraints>
                     </view>

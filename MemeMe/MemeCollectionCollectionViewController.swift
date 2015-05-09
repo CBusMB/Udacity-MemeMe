@@ -99,8 +99,10 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
   
   func toggleDeleteButtonHidden(#editingStatus: Bool) {
     for cell in collectionView!.visibleCells() as! [MemeCollectionCollectionViewCell] {
-      var indexPathForCell = collectionView!.indexPathForCell(cell)
-      var cellAtIndexPath = collectionView!.cellForItemAtIndexPath(indexPathForCell!) as! MemeCollectionCollectionViewCell
+      let indexPathForCell = collectionView!.indexPathForCell(cell)
+      let cellAtIndexPath = collectionView!.cellForItemAtIndexPath(indexPathForCell!) as! MemeCollectionCollectionViewCell
+      // use the contrary value of editing status to determine to show or hide the delete buttons
+      // if we are not editing, hide the buttons
       cellAtIndexPath.deleteButton.hidden = !editingStatus
     }
   }
