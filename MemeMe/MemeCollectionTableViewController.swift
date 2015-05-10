@@ -38,7 +38,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! UITableViewCell
     cell.textLabel!.text = memes.memeCollection[indexPath.row].topText + ellipsis +
       memes.memeCollection[indexPath.row].bottomText
-    cell.imageView?.image = memes.memeCollection[indexPath.row].memeImage
+    cell.imageView?.image = memes.memeCollection[indexPath.row].image
     
     return cell
   }
@@ -46,7 +46,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let detailViewController = storyboard.instantiateViewControllerWithIdentifier("memeDetailViewController") as! MemeDetailViewController
-    detailViewController.memeImage = memes.memeCollection[indexPath.row].memeImage
+    detailViewController.indexForMeme = indexPath.row
     detailViewController.hidesBottomBarWhenPushed = true
     navigationController?.pushViewController(detailViewController, animated: true)
   }

@@ -58,6 +58,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     imageView.contentMode = .ScaleAspectFill
     cell.backgroundView = imageView
     
+    // Can't use MemeTextAttributes as font size is too large
     let memeTextAttributes = [
       NSStrokeColorAttributeName: UIColor.blackColor(),
       NSForegroundColorAttributeName: UIColor.whiteColor(),
@@ -75,7 +76,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     
     // Add the UIButton to the collection view
     cell.deleteButton.layer.setValue(indexPath.item, forKey: "index")
-    cell.deleteButton.addTarget(self, action: "removeMemesFromCollectionView:", forControlEvents: .TouchUpInside)
+    cell.deleteButton.addTarget(self, action: "removeMemeFromCollectionView:", forControlEvents: .TouchUpInside)
     
     // hide the in-cell delete button if not in editing mode
     if editingCollectionView {
@@ -92,7 +93,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let detailViewController = storyboard.instantiateViewControllerWithIdentifier("memeDetailViewController") as! MemeDetailViewController
-    detailViewController.memeImage = memes.memeCollection[indexPath.item].memeImage
+    detailViewController.indexForMeme = indexPath.item
     detailViewController.hidesBottomBarWhenPushed = true
     navigationController?.pushViewController(detailViewController, animated: true)
   }
@@ -107,7 +108,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     }
   }
   
-  func removeMemesFromCollectionView(sender: UIButton) {
+  func removeMemeFromCollectionView(sender: UIButton) {
     let memeIndex = sender.layer.valueForKey("index") as! Int
     memes.removeMemeFromCollection(atIndex: memeIndex)
     collectionView?.reloadData()

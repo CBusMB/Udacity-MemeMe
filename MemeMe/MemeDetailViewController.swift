@@ -10,13 +10,17 @@ import UIKit
 
 class MemeDetailViewController: UIViewController
 {
-  var memeImage: UIImage?
+  let memes = MemeCollection.sharedCollection
+  var indexForMeme: Int?
+  
   @IBOutlet weak var memeImageView: UIImageView!
+  @IBOutlet weak var memeTopTextLabel: UILabel!
+  @IBOutlet weak var memeBottomTextLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Meme", style: .Plain, target: self, action: "segueToMemeEditor")
+    //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Meme", style: .Plain, target: self, action: "segueToMemeEditor")
     
     // Tap recognizer
     let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
@@ -29,7 +33,13 @@ class MemeDetailViewController: UIViewController
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
-    memeImageView.image = memeImage
+    if let index = indexForMeme {
+      memeImageView.image = memes.memeCollection[index].image
+      let attributedTopText = NSAttributedString(string: memes.memeCollection[index].topText, attributes: MemeTextAttributes().attributes)
+      let attributedBottomText = NSAttributedString(string: memes.memeCollection[index].bottomText, attributes: MemeTextAttributes().attributes)
+      memeTopTextLabel.attributedText = attributedTopText
+      memeBottomTextLabel.attributedText = attributedBottomText
+    }
   }
   
   func imageTapped(recognizer: UITapGestureRecognizer) {
@@ -43,11 +53,11 @@ class MemeDetailViewController: UIViewController
     }
   }
   
-  //    func segueToMemeEditor() {
-  //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //        let memeEditor = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
-  //
-  //        self.presentViewController(memeEditor, animated: true, completion: nil)
-  //    }
+//  func segueToMemeEditor() {
+//    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//    let memeEditor = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
+//  
+//    self.presentViewController(memeEditor, animated: true, completion: nil)
+//  }
   
 }

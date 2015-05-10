@@ -31,21 +31,16 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     imageToMemeView.backgroundColor = UIColor.grayColor()
     
     // textField attributes
-    let memeTextAttributes = [
-      NSStrokeColorAttributeName: UIColor.blackColor(),
-      NSForegroundColorAttributeName: UIColor.whiteColor(),
-      NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-      NSStrokeWidthAttributeName : -1.0
-    ]
+    
     
     topTextField.delegate = self
-    topTextField.defaultTextAttributes = memeTextAttributes
+    topTextField.defaultTextAttributes = MemeTextAttributes().attributes
     topTextField.borderStyle = UITextBorderStyle.None
     topTextField.textAlignment = .Center
     topTextField.backgroundColor = UIColor.clearColor()
     topTextField.text = TopTextDefault
     bottomTextField.delegate = self
-    bottomTextField.defaultTextAttributes = memeTextAttributes
+    bottomTextField.defaultTextAttributes = MemeTextAttributes().attributes
     bottomTextField.borderStyle = UITextBorderStyle.None
     bottomTextField.backgroundColor = UIColor.clearColor()
     bottomTextField.textAlignment = .Center
@@ -111,11 +106,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   // MARK: Meme saving and sharing
   
-  /// :param: editedMemeImage The modified image to be saved as a Meme
-  func save(#editedMemeImage: UIImage) {
+  func save() {
     // Make sure we have an image
     if let originalImage = self.memeImage {
-      let userGeneratedMeme = Meme(image: originalImage, memeImage: editedMemeImage,
+      let userGeneratedMeme = Meme(image: originalImage,
         topText: topTextField.text, bottomText: bottomTextField.text)
       memes.addMemeToCollection(userGeneratedMeme)
     }
@@ -129,7 +123,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     activityController.completionWithItemsHandler = {(activityType, completed, returnedItems, error) in
       if completed {
         // user completed sharing activity
-        self.save(editedMemeImage: userEditedMemeImage)
+        self.save()
         self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
       } else {
         // user cancelled sharing activity

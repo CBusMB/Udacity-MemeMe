@@ -32,7 +32,7 @@ class MemeCollection
     memes.append(meme)
   }
   
-  /// :param: index The index of the meme to be removed from the collection
+  /// :param: atIndex The index of the meme to be removed from the collection
   func removeMemeFromCollection(#atIndex: Int) {
     memes.removeAtIndex(atIndex)
   }
