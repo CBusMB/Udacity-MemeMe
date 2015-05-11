@@ -58,19 +58,11 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     imageView.contentMode = .ScaleAspectFill
     cell.backgroundView = imageView
     
-    // Can't use MemeTextAttributes as font size is too large
-    let memeTextAttributes = [
-      NSStrokeColorAttributeName: UIColor.blackColor(),
-      NSForegroundColorAttributeName: UIColor.whiteColor(),
-      NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 16)!,
-      NSStrokeWidthAttributeName : -1.0
-    ]
-    
     // set text attributes to NSAttributedString of meme text and assign to cell labels
     let memeTopText = memes.memeCollection[indexPath.item].topText
     let memeBottomText = memes.memeCollection[indexPath.item].bottomText
-    let attributedTopText = NSAttributedString(string: memeTopText, attributes: memeTextAttributes)
-    let attributedBottomText = NSAttributedString(string: memeBottomText, attributes: memeTextAttributes)
+    let attributedTopText = NSAttributedString(string: memeTopText, attributes: MemeTextAttributes().inCellAttributes)
+    let attributedBottomText = NSAttributedString(string: memeBottomText, attributes: MemeTextAttributes().inCellAttributes)
     cell.memeTopText.attributedText = attributedTopText
     cell.memeBottomText.attributedText = attributedBottomText
     

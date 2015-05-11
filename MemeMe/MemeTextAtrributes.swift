@@ -17,4 +17,11 @@ struct MemeTextAttributes {
     NSStrokeWidthAttributeName : -1.0
   ]
   
+  let inCellAttributes = [
+    NSStrokeColorAttributeName: UIColor.blackColor(),
+    NSForegroundColorAttributeName: UIColor.whiteColor(),
+    NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 16)!,
+    NSStrokeWidthAttributeName : -1.0
+  ]
+  
 }

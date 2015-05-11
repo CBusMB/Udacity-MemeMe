@@ -73,7 +73,6 @@
 		326F96441AF3153700DE6190 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				32307D461AFECA3A000D04B8 /* MemeTextAtrributes.swift */,
 				3279DAFB1AEF04B70071A885 /* Meme.swift */,
 				32767DBF1AF02078004483A6 /* MemeCollection.swift */,
 			);
@@ -108,6 +107,7 @@
 				326F96421AF2EF5A00DE6190 /* MemeCollectionCollectionViewCell.swift */,
 				324DB6D81AF1A488005496CB /* MemeDetailViewController.swift */,
 				3279DADF1AEEF96F0071A885 /* Main.storyboard */,
+				32307D461AFECA3A000D04B8 /* MemeTextAtrributes.swift */,
 				326F96441AF3153700DE6190 /* Model */,
 				324DB6D61AF1A320005496CB /* Images.xcassets */,
 				3279DAE41AEEF96F0071A885 /* LaunchScreen.xib */,
