@@ -18,9 +18,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var photoSelectorToolbar: UIToolbar!
   @IBOutlet weak var sharingNavigationBar: UINavigationBar!
   
-  var memeImage: UIImage?
-  private let TopTextDefault = "TOP"
-  private let BottomTextDefault = "BOTTOM"
+  var memeImage: UIImage? {
+    didSet {
+      // Tap recognizers
+      let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
+      imageTap.numberOfTapsRequired = 1
+      imageTap.numberOfTouchesRequired = 1
+      imageToMemeView.addGestureRecognizer(imageTap)
+      imageToMemeView.userInteractionEnabled = true
+    }
+  }
+  
+  private let topTextDefault = "TOP"
+  private let bottomTextDefault = "BOTTOM"
   private let segueIdentifier = "showSentMemes"
   let memes = MemeCollection.sharedCollection
   
@@ -31,27 +41,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     imageToMemeView.backgroundColor = UIColor.grayColor()
     
     // textField attributes
-    
-    
     topTextField.delegate = self
     topTextField.defaultTextAttributes = MemeTextAttributes().attributes
     topTextField.borderStyle = UITextBorderStyle.None
     topTextField.textAlignment = .Center
     topTextField.backgroundColor = UIColor.clearColor()
-    topTextField.text = TopTextDefault
+    topTextField.text = topTextDefault
     bottomTextField.delegate = self
     bottomTextField.defaultTextAttributes = MemeTextAttributes().attributes
     bottomTextField.borderStyle = UITextBorderStyle.None
     bottomTextField.backgroundColor = UIColor.clearColor()
     bottomTextField.textAlignment = .Center
-    bottomTextField.text = BottomTextDefault
-    
-    // Tap recognizers
-    let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
-    imageTap.numberOfTapsRequired = 1
-    imageTap.numberOfTouchesRequired = 1
-    imageToMemeView.addGestureRecognizer(imageTap)
-    imageToMemeView.userInteractionEnabled = true
+    bottomTextField.text = bottomTextDefault
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -71,6 +72,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // set imageToMeme if we have already have an image
     imageToMemeView.image = memeImage
+    
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -176,7 +178,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func textFieldDidBeginEditing(textField: UITextField) {
-    if textField.text == TopTextDefault || textField.text == BottomTextDefault {
+    if textField.text == topTextDefault || textField.text == bottomTextDefault {
       textField.text = String()
     }
   }
@@ -189,12 +191,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func keyboardWillShow(notification: NSNotification) {
-    self.view.frame.origin.y -= (keyboardHeight(notification) / 1.8)
-    
+    if topTextField.isFirstResponder() {
+      self.view.frame.origin.y += (keyboardHeight(notification) / 2.7)
+    } else {
+      self.view.frame.origin.y -= keyboardHeight(notification)
+    }
   }
   
   func keyboardWillHide(notification: NSNotification) {
-    self.view.frame.origin.y += (keyboardHeight(notification) / 1.8)
+    if topTextField.isFirstResponder() {
+      self.view.frame.origin.y -= (keyboardHeight(notification) / 2.7)
+    } else {
+      self.view.frame.origin.y += keyboardHeight(notification)
+    }
   }
   
   func keyboardHeight(notification: NSNotification) -> CGFloat {

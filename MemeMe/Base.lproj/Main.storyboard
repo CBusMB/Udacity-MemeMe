@@ -80,16 +80,17 @@
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="uuu-U8-JZe" secondAttribute="centerX" id="ci5-mi-f2i"/>
                             <constraint firstItem="oSN-S1-aiK" firstAttribute="top" secondItem="R8T-Af-bjX" secondAttribute="bottom" constant="30" id="mEq-51-JyR">
                                 <variation key="heightClass=regular" constant="60"/>
+                                <variation key="widthClass=compact" constant="8"/>
                                 <variation key="widthClass=regular" constant="58"/>
-                                <variation key="heightClass=compact-widthClass=compact" constant="59"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="8"/>
                                 <variation key="heightClass=regular-widthClass=compact" constant="30"/>
                             </constraint>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="leading" secondItem="MeT-Ts-bta" secondAttribute="trailing" constant="-584" id="tWl-sk-2rt"/>
                             <constraint firstAttribute="bottom" secondItem="Fb1-1s-wYp" secondAttribute="bottom" constant="70" id="v2a-h0-mBr">
                                 <variation key="heightClass=regular" constant="95"/>
-                                <variation key="widthClass=compact" constant="107"/>
+                                <variation key="widthClass=compact" constant="50"/>
                                 <variation key="widthClass=regular" constant="85"/>
-                                <variation key="heightClass=compact-widthClass=compact" constant="90"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="50"/>
                             </constraint>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="MeT-Ts-bta" secondAttribute="centerX" id="xXl-Z1-ahT"/>
                         </constraints>
@@ -287,7 +288,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wkQ-kP-0VK">
-                                <rect key="frame" x="16" y="94" width="568" height="30"/>
+                                <rect key="frame" x="16" y="70" width="568" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ld4-pu-vhL"/>
                                 </constraints>
@@ -322,14 +323,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8jC-Nm-YPH" firstAttribute="top" secondItem="QJS-Jy-nOy" secondAttribute="bottom" constant="70" id="6My-Tl-RRB">
-                                <variation key="heightClass=regular" constant="95"/>
-                                <variation key="widthClass=compact" constant="107"/>
-                                <variation key="heightClass=compact-widthClass=compact" constant="90"/>
+                                <variation key="heightClass=regular" constant="70"/>
+                                <variation key="widthClass=compact" constant="70"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="70"/>
                             </constraint>
                             <constraint firstItem="QJS-Jy-nOy" firstAttribute="leading" secondItem="wkQ-kP-0VK" secondAttribute="leading" id="8Pe-Mp-0o5"/>
-                            <constraint firstItem="wkQ-kP-0VK" firstAttribute="top" secondItem="Ivq-hL-cmW" secondAttribute="bottom" constant="74" id="LoF-h4-y5A">
-                                <variation key="heightClass=regular" constant="104"/>
-                                <variation key="heightClass=compact-widthClass=compact" constant="103"/>
+                            <constraint firstItem="wkQ-kP-0VK" firstAttribute="top" secondItem="Ivq-hL-cmW" secondAttribute="bottom" constant="50" id="LoF-h4-y5A">
+                                <variation key="heightClass=regular" constant="50"/>
+                                <variation key="heightClass=compact-widthClass=compact" constant="50"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="dGT-AG-YIl" secondAttribute="trailing" id="Zoh-56-3iv"/>
                             <constraint firstItem="wkQ-kP-0VK" firstAttribute="centerX" secondItem="dGT-AG-YIl" secondAttribute="centerX" id="c5s-rL-CUO"/>
