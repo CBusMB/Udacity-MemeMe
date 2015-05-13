@@ -12,7 +12,7 @@ import UIKit
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
   let memes = MemeCollection.sharedCollection
-  private let ReuseIdentifier = "memeCell"
+  private let reuseIdentifier = "memeCell"
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -51,7 +51,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
   }
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ReuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
     
     // create imageView with meme image and set as cell's background image
     let imageView = UIImageView(image: memes.memeCollection[indexPath.item].image)

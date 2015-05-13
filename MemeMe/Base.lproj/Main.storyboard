@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="32" width="600" height="531"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oSN-S1-aiK">
-                                <rect key="frame" x="16" y="94" width="568" height="30"/>
+                                <rect key="frame" x="16" y="97" width="568" height="30"/>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -67,7 +67,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MeT-Ts-bta" firstAttribute="leading" secondItem="zox-fX-qgr" secondAttribute="leadingMargin" constant="-16" id="7Ai-Sh-5FD"/>
-                            <constraint firstItem="R8T-Af-bjX" firstAttribute="top" secondItem="88M-z0-KdC" secondAttribute="bottom" symbolic="YES" id="99Y-it-Dpq"/>
+                            <constraint firstItem="R8T-Af-bjX" firstAttribute="top" secondItem="88M-z0-KdC" secondAttribute="bottom" id="99Y-it-Dpq"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="leading" secondItem="R8T-Af-bjX" secondAttribute="leading" id="Fi5-aK-juJ"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="bottom" secondItem="E97-JZ-EKM" secondAttribute="top" id="I7E-wI-enm"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="trailing" secondItem="oSN-S1-aiK" secondAttribute="trailing" id="Ii0-kj-Ect"/>
@@ -78,7 +78,7 @@
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="R8T-Af-bjX" secondAttribute="centerX" id="Yg0-FG-VAa"/>
                             <constraint firstItem="uuu-U8-JZe" firstAttribute="leading" secondItem="MeT-Ts-bta" secondAttribute="leading" id="Znx-5G-Ihq"/>
                             <constraint firstItem="Fb1-1s-wYp" firstAttribute="centerX" secondItem="uuu-U8-JZe" secondAttribute="centerX" id="ci5-mi-f2i"/>
-                            <constraint firstItem="oSN-S1-aiK" firstAttribute="top" secondItem="R8T-Af-bjX" secondAttribute="bottom" constant="30" id="mEq-51-JyR">
+                            <constraint firstItem="oSN-S1-aiK" firstAttribute="top" secondItem="R8T-Af-bjX" secondAttribute="bottom" constant="33" id="mEq-51-JyR">
                                 <variation key="heightClass=regular" constant="60"/>
                                 <variation key="widthClass=compact" constant="8"/>
                                 <variation key="widthClass=regular" constant="58"/>
@@ -191,7 +191,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="171" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-Mi-fIQ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="none" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-Mi-fIQ">
                                             <rect key="frame" x="8" y="8" width="155" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="Zmm-bt-lGE"/>

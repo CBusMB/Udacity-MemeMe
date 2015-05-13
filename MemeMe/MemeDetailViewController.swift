@@ -13,27 +13,31 @@ class MemeDetailViewController: UIViewController
   let memes = MemeCollection.sharedCollection
   var indexForMeme: Int?
   
-  @IBOutlet weak var memeImageView: UIImageView!
+  @IBOutlet weak var memeImageView: UIImageView! {
+    didSet {
+      // Tap recognizer
+      let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
+      imageTap.numberOfTapsRequired = 1
+      imageTap.numberOfTouchesRequired = 1
+      memeImageView.addGestureRecognizer(imageTap)
+      memeImageView.userInteractionEnabled = true
+    }
+  }
+  
   @IBOutlet weak var memeTopTextLabel: UILabel!
   @IBOutlet weak var memeBottomTextLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Meme", style: .Plain, target: self, action: "segueToMemeEditor")
-    
-    // Tap recognizer
-    let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
-    imageTap.numberOfTapsRequired = 1
-    imageTap.numberOfTouchesRequired = 1
-    memeImageView.addGestureRecognizer(imageTap)
-    memeImageView.userInteractionEnabled = true
   }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
+    // get the index of the selected meme passed from the tableView or collectionView
     if let index = indexForMeme {
+      // use that index to get our image and text from MemeCollection.sharedCollection
       memeImageView.image = memes.memeCollection[index].image
       let attributedTopText = NSAttributedString(string: memes.memeCollection[index].topText, attributes: MemeTextAttributes().attributes)
       let attributedBottomText = NSAttributedString(string: memes.memeCollection[index].bottomText, attributes: MemeTextAttributes().attributes)
@@ -52,12 +56,4 @@ class MemeDetailViewController: UIViewController
       }
     }
   }
-  
-//  func segueToMemeEditor() {
-//    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//    let memeEditor = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
-//  
-//    self.presentViewController(memeEditor, animated: true, completion: nil)
-//  }
-  
 }

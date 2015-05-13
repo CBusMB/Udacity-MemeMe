@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe
 //
 //  Created by Matthew Brown on 4/27/15.
@@ -20,7 +20,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   var memeImage: UIImage? {
     didSet {
-      // Tap recognizers
+      // Tap recognizer
       let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
       imageTap.numberOfTapsRequired = 1
       imageTap.numberOfTouchesRequired = 1
@@ -33,6 +33,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   private let bottomTextDefault = "BOTTOM"
   private let segueIdentifier = "showSentMemes"
   let memes = MemeCollection.sharedCollection
+  let keyboardAdjustment: CGFloat = 2.7
   
   // MARK: Lifecycle
   override func viewDidLoad() {
@@ -70,7 +71,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       shareButton.enabled = true
     }
     
-    // set imageToMeme if we have already have an image
+    // set imageToMeme.image if we have already have an image
     imageToMemeView.image = memeImage
     
   }
@@ -110,8 +111,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   func save() {
     // Make sure we have an image
-    if let originalImage = self.memeImage {
-      let userGeneratedMeme = Meme(image: originalImage,
+    if let selectedImage = memeImage {
+      let userGeneratedMeme = Meme(image: selectedImage,
         topText: topTextField.text, bottomText: bottomTextField.text)
       memes.addMemeToCollection(userGeneratedMeme)
     }
@@ -191,16 +192,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func keyboardWillShow(notification: NSNotification) {
+    // determine how to move the view based on which textField is being edited
     if topTextField.isFirstResponder() {
-      self.view.frame.origin.y += (keyboardHeight(notification) / 2.7)
+      self.view.frame.origin.y += (keyboardHeight(notification) / keyboardAdjustment)
     } else {
       self.view.frame.origin.y -= keyboardHeight(notification)
     }
   }
   
   func keyboardWillHide(notification: NSNotification) {
+    // determine how to move the view based on which textField is being edited
     if topTextField.isFirstResponder() {
-      self.view.frame.origin.y -= (keyboardHeight(notification) / 2.7)
+      self.view.frame.origin.y -= (keyboardHeight(notification) / keyboardAdjustment)
     } else {
       self.view.frame.origin.y += keyboardHeight(notification)
     }

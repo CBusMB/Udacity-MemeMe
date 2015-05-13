@@ -10,9 +10,10 @@ import UIKit
 
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
-  private let SegueIdentifier = "tableToDetail"
+  private let reuseIdentifier = "memeCell"
   let memes = MemeCollection.sharedCollection
   
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.delegate = self
@@ -33,9 +34,8 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cellID = "memeCell"
     let ellipsis = "..."
-    let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
     cell.textLabel!.text = memes.memeCollection[indexPath.row].topText + ellipsis +
       memes.memeCollection[indexPath.row].bottomText
     cell.imageView?.image = memes.memeCollection[indexPath.row].image
@@ -46,6 +46,8 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let detailViewController = storyboard.instantiateViewControllerWithIdentifier("memeDetailViewController") as! MemeDetailViewController
+    // pass the indexPath.row of the selected meme to the detailViewController so that it can access the 
+    // correct meme in MemeCollection.sharedCollection
     detailViewController.indexForMeme = indexPath.row
     detailViewController.hidesBottomBarWhenPushed = true
     navigationController?.pushViewController(detailViewController, animated: true)
