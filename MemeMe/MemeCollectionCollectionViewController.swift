@@ -12,14 +12,13 @@ import UIKit
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
   let memes = MemeCollection.sharedCollection
-  private let reuseIdentifier = "memeCell"
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     collectionView?.dataSource = self
     collectionView?.delegate = self
-    navigationItem.leftBarButtonItem = self.editButtonItem()
+    navigationItem.leftBarButtonItem = editButtonItem()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -51,6 +50,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
   }
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let reuseIdentifier = "memeCell"
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
     
     // create imageView with meme image and set as cell's background image
@@ -85,6 +85,8 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let detailViewController = storyboard.instantiateViewControllerWithIdentifier("memeDetailViewController") as! MemeDetailViewController
+    // pass the indexPath.row of the selected meme to the detailViewController so that it can access the
+    // correct meme in MemeCollection.sharedCollection
     detailViewController.indexForMeme = indexPath.item
     detailViewController.hidesBottomBarWhenPushed = true
     navigationController?.pushViewController(detailViewController, animated: true)

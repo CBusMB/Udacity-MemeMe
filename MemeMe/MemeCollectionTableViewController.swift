@@ -10,7 +10,6 @@ import UIKit
 
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
-  private let reuseIdentifier = "memeCell"
   let memes = MemeCollection.sharedCollection
   
   // MARK: - Lifecycle
@@ -34,6 +33,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let reuseIdentifier = "memeCell"
     let ellipsis = "..."
     let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
     cell.textLabel!.text = memes.memeCollection[indexPath.row].topText + ellipsis +

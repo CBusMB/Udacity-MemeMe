@@ -29,7 +29,7 @@ class MemeDetailViewController: UIViewController
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .Plain, target: self, action: "deleteMeme")
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -44,6 +44,19 @@ class MemeDetailViewController: UIViewController
       memeTopTextLabel.attributedText = attributedTopText
       memeBottomTextLabel.attributedText = attributedBottomText
     }
+  }
+  
+  func deleteMeme() {
+    // create an alert controller and confirm deletion
+    let deleteConfirmation = UIAlertController(title: "Delete This Meme?", message: "This action cannot be undone", preferredStyle: .ActionSheet)
+    let delete = UIAlertAction(title: "Delete", style: .Destructive) { Void in
+      // on confirmation to delete, update the shared memeCollection and pop back one on the navigation stack
+      self.memes.removeMemeFromCollection(atIndex: self.indexForMeme!)
+      self.navigationController?.popViewControllerAnimated(true) }
+    deleteConfirmation.addAction(delete)
+    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    deleteConfirmation.addAction(cancel)
+    self.presentViewController(deleteConfirmation, animated: true, completion: nil)
   }
   
   func imageTapped(recognizer: UITapGestureRecognizer) {

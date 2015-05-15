@@ -31,9 +31,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   private let topTextDefault = "TOP"
   private let bottomTextDefault = "BOTTOM"
-  private let segueIdentifier = "showSentMemes"
+  private let keyboardAdjustment: CGFloat = 2.7
   let memes = MemeCollection.sharedCollection
-  let keyboardAdjustment: CGFloat = 2.7
   
   // MARK: Lifecycle
   override func viewDidLoad() {
@@ -119,6 +118,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   @IBAction func shareMeme(sender: UIBarButtonItem) {
+    let segueIdentifier = "showSentMemes"
     let userEditedMemeImage = generateMemeImage()
     let activityItem = [userEditedMemeImage]
     let activityController = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
@@ -127,7 +127,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       if completed {
         // user completed sharing activity
         self.save()
-        self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
+        self.performSegueWithIdentifier(segueIdentifier, sender: self)
       } else {
         // user cancelled sharing activity
         activityController.dismissViewControllerAnimated(true, completion: nil)
