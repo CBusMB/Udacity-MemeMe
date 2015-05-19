@@ -22,8 +22,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     didSet {
       // Tap recognizer
       let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
-      imageTap.numberOfTapsRequired = 1
-      imageTap.numberOfTouchesRequired = 1
       imageToMemeView.addGestureRecognizer(imageTap)
       imageToMemeView.userInteractionEnabled = true
     }

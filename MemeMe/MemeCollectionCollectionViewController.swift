@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class MemeCollectionCollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
   let memes = MemeCollection.sharedCollection
@@ -53,16 +52,16 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     let reuseIdentifier = "memeCell"
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionCollectionViewCell
     
-    // create imageView with meme image and set as cell's background image
+    // create imageView with meme image and set it as cell's background image
     let imageView = UIImageView(image: memes.memeCollection[indexPath.item].image)
     imageView.contentMode = .ScaleToFill
     cell.backgroundView = imageView
     
     // set text attributes to NSAttributedString of meme text and assign to cell labels
-    let memeTopText = memes.memeCollection[indexPath.item].topText
-    let memeBottomText = memes.memeCollection[indexPath.item].bottomText
-    let attributedTopText = NSAttributedString(string: memeTopText, attributes: MemeTextAttributes().inCellAttributes)
-    let attributedBottomText = NSAttributedString(string: memeBottomText, attributes: MemeTextAttributes().inCellAttributes)
+    let topText = memes.memeCollection[indexPath.item].topText
+    let bottomText = memes.memeCollection[indexPath.item].bottomText
+    let attributedTopText = NSAttributedString(string: topText, attributes: MemeTextAttributes().inCellAttributes)
+    let attributedBottomText = NSAttributedString(string: bottomText, attributes: MemeTextAttributes().inCellAttributes)
     cell.memeTopText.attributedText = attributedTopText
     cell.memeBottomText.attributedText = attributedBottomText
     

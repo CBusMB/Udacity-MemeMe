@@ -17,8 +17,6 @@ class MemeDetailViewController: UIViewController
     didSet {
       // Tap recognizer
       let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
-      imageTap.numberOfTapsRequired = 1
-      imageTap.numberOfTouchesRequired = 1
       memeImageView.addGestureRecognizer(imageTap)
       memeImageView.userInteractionEnabled = true
     }
@@ -53,6 +51,7 @@ class MemeDetailViewController: UIViewController
       // on confirmation to delete, update the shared memeCollection and pop back one on the navigation stack
       self.memes.removeMemeFromCollection(atIndex: self.indexForMeme!)
       self.navigationController?.popViewControllerAnimated(true) }
+    
     deleteConfirmation.addAction(delete)
     let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
     deleteConfirmation.addAction(cancel)

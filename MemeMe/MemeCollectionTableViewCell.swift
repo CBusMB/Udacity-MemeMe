@@ -13,14 +13,5 @@ class MemeCollectionTableViewCell: UITableViewCell
   @IBOutlet weak var memeImageView: UIImageView!
   @IBOutlet weak var topTextLabel: UILabel!
   @IBOutlet weak var bottomTextLabel: UILabel!
-  @IBOutlet weak var mainTextLabel: UILabel!
-
-  override func awakeFromNib() {
-    super.awakeFromNib()
-  }
-
-  override func setSelected(selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-  }
-    
+  @IBOutlet weak var mainTextLabel: UILabel! 
 }

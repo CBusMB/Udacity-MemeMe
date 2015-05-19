@@ -35,13 +35,14 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let ellipsis = "..."
     let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionTableViewCell
     let topText = memes.memeCollection[indexPath.row].topText
     let bottomText = memes.memeCollection[indexPath.row].bottomText
+    let ellipsis = "..."
     cell.mainTextLabel!.text =  topText + ellipsis + bottomText
     cell.memeImageView.contentMode = .ScaleToFill
     cell.memeImageView?.image = memes.memeCollection[indexPath.row].image
+    // set text attributes to NSAttributedString of meme text and assign to labels in imageView
     let attributedTopText = NSAttributedString(string: topText, attributes: MemeTextAttributes().inCellAttributes)
     let attributedBottomText = NSAttributedString(string: bottomText, attributes: MemeTextAttributes().inCellAttributes)
     cell.topTextLabel.attributedText = attributedTopText

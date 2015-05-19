@@ -11,8 +11,6 @@ import UIKit
 class MemeCollectionCollectionViewCell: UICollectionViewCell
 {
   @IBOutlet weak var memeTopText: UILabel!
-  
   @IBOutlet weak var deleteButton: UIButton!
-  
   @IBOutlet weak var memeBottomText: UILabel!
 }
