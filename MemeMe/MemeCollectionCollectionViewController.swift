@@ -55,7 +55,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     
     // create imageView with meme image and set as cell's background image
     let imageView = UIImageView(image: memes.memeCollection[indexPath.item].image)
-    imageView.contentMode = .ScaleAspectFill
+    imageView.contentMode = .ScaleToFill
     cell.backgroundView = imageView
     
     // set text attributes to NSAttributedString of meme text and assign to cell labels

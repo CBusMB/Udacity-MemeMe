@@ -11,6 +11,7 @@ import UIKit
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
   let memes = MemeCollection.sharedCollection
+  let reuseIdentifier = "memeCell"
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -19,6 +20,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     tableView.dataSource = self
     
     navigationItem.leftBarButtonItem = editButtonItem()
+    tableView.registerNib(UINib(nibName: "MemeCollectionTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -33,12 +35,17 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let reuseIdentifier = "memeCell"
     let ellipsis = "..."
-    let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
-    cell.textLabel!.text = memes.memeCollection[indexPath.row].topText + ellipsis +
-      memes.memeCollection[indexPath.row].bottomText
-    cell.imageView?.image = memes.memeCollection[indexPath.row].image
+    let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionTableViewCell
+    let topText = memes.memeCollection[indexPath.row].topText
+    let bottomText = memes.memeCollection[indexPath.row].bottomText
+    cell.mainTextLabel!.text =  topText + ellipsis + bottomText
+    cell.memeImageView.contentMode = .ScaleToFill
+    cell.memeImageView?.image = memes.memeCollection[indexPath.row].image
+    let attributedTopText = NSAttributedString(string: topText, attributes: MemeTextAttributes().inCellAttributes)
+    let attributedBottomText = NSAttributedString(string: bottomText, attributes: MemeTextAttributes().inCellAttributes)
+    cell.topTextLabel.attributedText = attributedTopText
+    cell.bottomTextLabel.attributedText = attributedBottomText
     
     return cell
   }
