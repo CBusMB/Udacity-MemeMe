@@ -11,7 +11,7 @@ import UIKit
 class MemeCollectionTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate
 {
   let memes = MemeCollection.sharedCollection
-  let reuseIdentifier = "memeCell"
+  let ReuseIdentifier = "memeCell"
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -20,7 +20,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
     tableView.dataSource = self
     
     navigationItem.leftBarButtonItem = editButtonItem()
-    tableView.registerNib(UINib(nibName: "MemeCollectionTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+    tableView.registerNib(UINib(nibName: "MemeCollectionTableViewCell", bundle: nil), forCellReuseIdentifier: ReuseIdentifier)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -35,7 +35,7 @@ class MemeCollectionTableViewController: UITableViewController, UITableViewDataS
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifier, forIndexPath: indexPath) as! MemeCollectionTableViewCell
     let topText = memes.memeCollection[indexPath.row].topText
     let bottomText = memes.memeCollection[indexPath.row].bottomText
     let ellipsis = "..."

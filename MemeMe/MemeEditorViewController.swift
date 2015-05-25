@@ -10,11 +10,34 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
 {
-  @IBOutlet weak var imageToMemeView: UIImageView!
+  @IBOutlet weak var imageToMemeView: UIImageView! {
+    didSet {
+      imageToMemeView.backgroundColor = UIColor.grayColor()
+      imageToMemeView.contentMode = .ScaleAspectFit
+    }
+  }
   @IBOutlet weak var cameraButton: UIBarButtonItem!
   @IBOutlet weak var shareButton: UIBarButtonItem!
-  @IBOutlet weak var topTextField: UITextField!
-  @IBOutlet weak var bottomTextField: UITextField!
+  @IBOutlet weak var topTextField: UITextField! {
+    didSet {
+      topTextField.delegate = self
+      topTextField.defaultTextAttributes = MemeTextAttributes().attributes
+      topTextField.borderStyle = UITextBorderStyle.None
+      topTextField.textAlignment = .Center
+      topTextField.backgroundColor = UIColor.clearColor()
+      topTextField.text = TopTextDefault
+    }
+  }
+  @IBOutlet weak var bottomTextField: UITextField! {
+    didSet {
+      bottomTextField.delegate = self
+      bottomTextField.defaultTextAttributes = MemeTextAttributes().attributes
+      bottomTextField.borderStyle = UITextBorderStyle.None
+      bottomTextField.backgroundColor = UIColor.clearColor()
+      bottomTextField.textAlignment = .Center
+      bottomTextField.text = BottomTextDefault
+    }
+  }
   @IBOutlet weak var photoSelectorToolbar: UIToolbar!
   @IBOutlet weak var sharingNavigationBar: UINavigationBar!
   
@@ -27,30 +50,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
   }
   
-  private let topTextDefault = "TOP"
-  private let bottomTextDefault = "BOTTOM"
-  private let keyboardAdjustment: CGFloat = 2.7
+  private let TopTextDefault = "TOP"
+  private let BottomTextDefault = "BOTTOM"
   let memes = MemeCollection.sharedCollection
   
   // MARK: Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    imageToMemeView.backgroundColor = UIColor.grayColor()
-    
-    // textField attributes
-    topTextField.delegate = self
-    topTextField.defaultTextAttributes = MemeTextAttributes().attributes
-    topTextField.borderStyle = UITextBorderStyle.None
-    topTextField.textAlignment = .Center
-    topTextField.backgroundColor = UIColor.clearColor()
-    topTextField.text = topTextDefault
-    bottomTextField.delegate = self
-    bottomTextField.defaultTextAttributes = MemeTextAttributes().attributes
-    bottomTextField.borderStyle = UITextBorderStyle.None
-    bottomTextField.backgroundColor = UIColor.clearColor()
-    bottomTextField.textAlignment = .Center
-    bottomTextField.text = bottomTextDefault
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -177,7 +183,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func textFieldDidBeginEditing(textField: UITextField) {
-    if textField.text == topTextDefault || textField.text == bottomTextDefault {
+    if textField.text == TopTextDefault || textField.text == BottomTextDefault {
       textField.text = String()
     }
   }
@@ -190,19 +196,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func keyboardWillShow(notification: NSNotification) {
-    // determine how to move the view based on which textField is being edited
-    if topTextField.isFirstResponder() {
-      self.view.frame.origin.y += (keyboardHeight(notification) / keyboardAdjustment)
-    } else {
+    // move the view so that the text field isn't obscured by the keyboard
+    if bottomTextField.isFirstResponder() {
       self.view.frame.origin.y -= keyboardHeight(notification)
     }
   }
   
   func keyboardWillHide(notification: NSNotification) {
-    // determine how to move the view based on which textField is being edited
-    if topTextField.isFirstResponder() {
-      self.view.frame.origin.y -= (keyboardHeight(notification) / keyboardAdjustment)
-    } else {
+    if bottomTextField.isFirstResponder() {
       self.view.frame.origin.y += keyboardHeight(notification)
     }
   }
