@@ -19,6 +19,7 @@ class MemeDetailViewController: UIViewController
       let imageTap = UITapGestureRecognizer(target: self, action: "imageTapped:")
       memeImageView.addGestureRecognizer(imageTap)
       memeImageView.userInteractionEnabled = true
+      memeImageView.backgroundColor = UIColor.grayColor()
     }
   }
   
@@ -37,8 +38,8 @@ class MemeDetailViewController: UIViewController
     if let index = indexForMeme {
       // use that index to get our image and text from MemeCollection.sharedCollection
       memeImageView.image = memes.memeCollection[index].image
-      let attributedTopText = NSAttributedString(string: memes.memeCollection[index].topText, attributes: MemeTextAttributes().attributes)
-      let attributedBottomText = NSAttributedString(string: memes.memeCollection[index].bottomText, attributes: MemeTextAttributes().attributes)
+      let attributedTopText = NSAttributedString(string: memes.memeCollection[index].topText, attributes: MemeTextAttributes.attributes)
+      let attributedBottomText = NSAttributedString(string: memes.memeCollection[index].bottomText, attributes: MemeTextAttributes.attributes)
       memeTopTextLabel.attributedText = attributedTopText
       memeBottomTextLabel.attributedText = attributedBottomText
     }

@@ -10,6 +10,10 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
 {
+  private let TopTextDefault = "TOP"
+  private let BottomTextDefault = "BOTTOM"
+  let memes = MemeCollection.sharedCollection
+  
   @IBOutlet weak var imageToMemeView: UIImageView! {
     didSet {
       imageToMemeView.backgroundColor = UIColor.grayColor()
@@ -20,24 +24,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var shareButton: UIBarButtonItem!
   @IBOutlet weak var topTextField: UITextField! {
     didSet {
-      topTextField.delegate = self
-      topTextField.defaultTextAttributes = MemeTextAttributes().attributes
-      topTextField.borderStyle = UITextBorderStyle.None
-      topTextField.textAlignment = .Center
-      topTextField.backgroundColor = UIColor.clearColor()
+      setTextFieldAttributes(topTextField)
       topTextField.text = TopTextDefault
     }
   }
   @IBOutlet weak var bottomTextField: UITextField! {
     didSet {
-      bottomTextField.delegate = self
-      bottomTextField.defaultTextAttributes = MemeTextAttributes().attributes
-      bottomTextField.borderStyle = UITextBorderStyle.None
-      bottomTextField.backgroundColor = UIColor.clearColor()
-      bottomTextField.textAlignment = .Center
+      setTextFieldAttributes(bottomTextField)
       bottomTextField.text = BottomTextDefault
     }
   }
+  
+  private func setTextFieldAttributes(textField: UITextField) {
+    textField.delegate = self
+    textField.defaultTextAttributes = MemeTextAttributes.attributes
+    textField.borderStyle = UITextBorderStyle.None
+    textField.backgroundColor = UIColor.clearColor()
+    textField.textAlignment = .Center
+  }
+  
   @IBOutlet weak var photoSelectorToolbar: UIToolbar!
   @IBOutlet weak var sharingNavigationBar: UINavigationBar!
   
@@ -49,10 +54,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       imageToMemeView.userInteractionEnabled = true
     }
   }
-  
-  private let TopTextDefault = "TOP"
-  private let BottomTextDefault = "BOTTOM"
-  let memes = MemeCollection.sharedCollection
   
   // MARK: Lifecycle
   override func viewDidLoad() {

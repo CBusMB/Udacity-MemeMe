@@ -60,8 +60,8 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     // set text attributes to NSAttributedString of meme text and assign to cell labels
     let topText = memes.memeCollection[indexPath.item].topText
     let bottomText = memes.memeCollection[indexPath.item].bottomText
-    let attributedTopText = NSAttributedString(string: topText, attributes: MemeTextAttributes().inCellAttributes)
-    let attributedBottomText = NSAttributedString(string: bottomText, attributes: MemeTextAttributes().inCellAttributes)
+    let attributedTopText = NSAttributedString(string: topText, attributes: MemeTextAttributes.inCellAttributes)
+    let attributedBottomText = NSAttributedString(string: bottomText, attributes: MemeTextAttributes.inCellAttributes)
     cell.memeTopText.attributedText = attributedTopText
     cell.memeBottomText.attributedText = attributedBottomText
     
@@ -109,8 +109,6 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
   
   // Go to MemeEditorViewController
   @IBAction func segueToMemeEditor(sender: UIBarButtonItem) {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let memeEditorViewController = storyboard.instantiateViewControllerWithIdentifier("memeEditorViewController") as! MemeEditorViewController
-    self.presentViewController(memeEditorViewController, animated: true, completion: nil)
+    dismissViewControllerAnimated(true, completion: nil)
   }
 }
