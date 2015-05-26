@@ -59,7 +59,7 @@ class MemeDetailViewController: UIViewController
     self.presentViewController(deleteConfirmation, animated: true, completion: nil)
   }
   
-  private func imageTapped(recognizer: UITapGestureRecognizer) {
+  func imageTapped(recognizer: UITapGestureRecognizer) {
     if recognizer.state == UIGestureRecognizerState.Ended {
       // hide the navigationBar to better see the meme
       if !navigationController!.navigationBarHidden {
