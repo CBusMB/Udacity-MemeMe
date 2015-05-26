@@ -91,7 +91,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     navigationController?.pushViewController(detailViewController, animated: true)
   }
   
-  func toggleDeleteButtonHidden(#editingStatus: Bool) {
+  private func toggleDeleteButtonHidden(#editingStatus: Bool) {
     for cell in collectionView!.visibleCells() as! [MemeCollectionCollectionViewCell] {
       let indexPathForCell = collectionView!.indexPathForCell(cell)
       let cellAtIndexPath = collectionView!.cellForItemAtIndexPath(indexPathForCell!) as! MemeCollectionCollectionViewCell
@@ -101,7 +101,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     }
   }
   
-  func removeMemeFromCollectionView(sender: UIButton) {
+  private func removeMemeFromCollectionView(sender: UIButton) {
     let memeIndex = sender.layer.valueForKey("index") as! Int
     memes.removeMemeFromCollection(atIndex: memeIndex)
     collectionView?.reloadData()

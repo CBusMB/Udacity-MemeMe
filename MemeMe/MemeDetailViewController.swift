@@ -45,7 +45,7 @@ class MemeDetailViewController: UIViewController
     }
   }
   
-  func deleteMeme() {
+  private func deleteMeme() {
     // create an alert controller and confirm deletion
     let deleteConfirmation = UIAlertController(title: "Delete This Meme?", message: "This action cannot be undone", preferredStyle: .ActionSheet)
     let delete = UIAlertAction(title: "Delete", style: .Destructive) { Void in
@@ -59,7 +59,7 @@ class MemeDetailViewController: UIViewController
     self.presentViewController(deleteConfirmation, animated: true, completion: nil)
   }
   
-  func imageTapped(recognizer: UITapGestureRecognizer) {
+  private func imageTapped(recognizer: UITapGestureRecognizer) {
     if recognizer.state == UIGestureRecognizerState.Ended {
       // hide the navigationBar to better see the meme
       if !navigationController!.navigationBarHidden {

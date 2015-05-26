@@ -20,14 +20,17 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       imageToMemeView.contentMode = .ScaleAspectFit
     }
   }
+  
   @IBOutlet weak var cameraButton: UIBarButtonItem!
   @IBOutlet weak var shareButton: UIBarButtonItem!
+  
   @IBOutlet weak var topTextField: UITextField! {
     didSet {
       setTextFieldAttributes(topTextField)
       topTextField.text = TopTextDefault
     }
   }
+  
   @IBOutlet weak var bottomTextField: UITextField! {
     didSet {
       setTextFieldAttributes(bottomTextField)
@@ -100,7 +103,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     self.presentViewController(imagePicker, animated: true, completion: nil)
   }
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+  private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
       memeImage = image
     }
@@ -113,7 +116,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   // MARK: Meme saving and sharing
   
-  func save() {
+  private func save() {
     // Make sure we have an image
     if let selectedImage = memeImage {
       let userGeneratedMeme = Meme(image: selectedImage,
@@ -140,7 +143,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
   }
   
-  func generateMemeImage() -> UIImage {
+  private func generateMemeImage() -> UIImage {
     // hide the navigationBar and toolBar so that they aren't part of the meme
     sharingNavigationBar.hidden = true
     photoSelectorToolbar.hidden = true
@@ -156,7 +159,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   // MARK: Tap gesture recognizer
-  func imageTapped(recognizer: UITapGestureRecognizer) {
+  private func imageTapped(recognizer: UITapGestureRecognizer) {
     if recognizer.state == UIGestureRecognizerState.Ended {
       // treat tapping the image as pressing return if the user has edited either text field
       if topTextField.isFirstResponder() {
@@ -177,50 +180,50 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   // MARK: Text field delegate, keyboard subscriptions
-  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+  private func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
     sharingNavigationBar.hidden = true
     photoSelectorToolbar.hidden = true
     return true
   }
   
-  func textFieldDidBeginEditing(textField: UITextField) {
+  private func textFieldDidBeginEditing(textField: UITextField) {
     if textField.text == TopTextDefault || textField.text == BottomTextDefault {
       textField.text = String()
     }
   }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  private func textFieldShouldReturn(textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     sharingNavigationBar.hidden = false
     photoSelectorToolbar.hidden = false
     return true
   }
   
-  func keyboardWillShow(notification: NSNotification) {
+  private func keyboardWillShow(notification: NSNotification) {
     // move the view so that the text field isn't obscured by the keyboard
     if bottomTextField.isFirstResponder() {
       self.view.frame.origin.y -= keyboardHeight(notification)
     }
   }
   
-  func keyboardWillHide(notification: NSNotification) {
+  private func keyboardWillHide(notification: NSNotification) {
     if bottomTextField.isFirstResponder() {
       self.view.frame.origin.y += keyboardHeight(notification)
     }
   }
   
-  func keyboardHeight(notification: NSNotification) -> CGFloat {
+  private func keyboardHeight(notification: NSNotification) -> CGFloat {
     let userInfo = notification.userInfo
     let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
     return keyboardSize.CGRectValue().height
   }
   
-  func subscribeToKeyboardNotifications() {
+  private func subscribeToKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
   }
   
-  func unsubscribeFromKeyboardNotifications() {
+  private func unsubscribeFromKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
   }
