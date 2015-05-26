@@ -131,14 +131,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     let activityItem = [userEditedMemeImage]
     let activityController = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
     self.presentViewController(activityController, animated: true, completion: nil)
-    activityController.completionWithItemsHandler = {(activityType, completed, returnedItems, error) in
+    activityController.completionWithItemsHandler = {(_, completed, _, _) in
       if completed {
         // user completed sharing activity
         self.save()
         self.performSegueWithIdentifier(segueIdentifier, sender: self)
       } else {
         // user cancelled sharing activity
-        activityController.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
       }
     }
   }
