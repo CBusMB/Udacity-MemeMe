@@ -103,7 +103,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     self.presentViewController(imagePicker, animated: true, completion: nil)
   }
   
-  private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
       memeImage = image
     }
