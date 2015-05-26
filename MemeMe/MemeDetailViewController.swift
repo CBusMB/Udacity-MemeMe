@@ -45,7 +45,7 @@ class MemeDetailViewController: UIViewController
     }
   }
   
-  private func deleteMeme() {
+  func deleteMeme() {
     // create an alert controller and confirm deletion
     let deleteConfirmation = UIAlertController(title: "Delete This Meme?", message: "This action cannot be undone", preferredStyle: .ActionSheet)
     let delete = UIAlertAction(title: "Delete", style: .Destructive) { Void in
