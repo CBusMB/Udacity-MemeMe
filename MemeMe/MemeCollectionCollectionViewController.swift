@@ -35,7 +35,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     }
   }
   
-  private var editingCollectionView: Bool = false {
+  var editingCollectionView: Bool = false {
     didSet {
       // hide or show the in-cell delete button when the Edit/Done button is tapped
       toggleDeleteButtonHidden(editingStatus: editingCollectionView)
@@ -91,7 +91,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     navigationController?.pushViewController(detailViewController, animated: true)
   }
   
-  private func toggleDeleteButtonHidden(#editingStatus: Bool) {
+  func toggleDeleteButtonHidden(#editingStatus: Bool) {
     for cell in collectionView!.visibleCells() as! [MemeCollectionCollectionViewCell] {
       let indexPathForCell = collectionView!.indexPathForCell(cell)
       let cellAtIndexPath = collectionView!.cellForItemAtIndexPath(indexPathForCell!) as! MemeCollectionCollectionViewCell
@@ -101,7 +101,7 @@ class MemeCollectionCollectionViewController: UICollectionViewController, UIColl
     }
   }
   
-  private func removeMemeFromCollectionView(sender: UIButton) {
+  func removeMemeFromCollectionView(sender: UIButton) {
     let memeIndex = sender.layer.valueForKey("index") as! Int
     memes.removeMemeFromCollection(atIndex: memeIndex)
     collectionView?.reloadData()
